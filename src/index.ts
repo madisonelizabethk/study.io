@@ -13,6 +13,6 @@ app.post('/api/users/:userId/email', login); // Log in account
 
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');
-})
+});
 
-export { registerUser, login }
+export { registerUser, login };

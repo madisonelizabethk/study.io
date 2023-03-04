@@ -26,10 +26,10 @@ async function getUserById(userId: string): Promise<User | null> {
   return user;
 }
 
-async function getUsersByViews(minViews: number): Promised<User[]>{
+async function getUsersByViews(minViews: number): Promise<User[]>{
   const users = await userRepository
      .createQueryBuilder('user')
-     .where('profileViews >= :minViews', { minViews });
+     .where('profileViews >= :minViews', { minViews })
      .select(['user.email', 'user.profileViews', 'user.joinedOn', 'user.userId'])
      .getMany();
 
