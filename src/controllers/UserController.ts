@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { addUser } from '../models/UserModel';
 
-async function registerUser(req:Request, res: Response): Promise<void> {
+async function registerUser(req: Request, res: Response): Promise<void> {
   const { email, password } = req.body as NewUserRequest;
 
   const newUser = await addUser(email, password);
@@ -11,7 +11,7 @@ async function registerUser(req:Request, res: Response): Promise<void> {
   res.sendStatus(201); // 201 created
 }
 
-function addUser(email: string, passwordHash: string) : User {
+function addUser(email: string, passwordHash: string): User {
   // Create a new user object and set the properties
   let newUser = new User();
   newUser.email = email;
@@ -24,5 +24,10 @@ function addUser(email: string, passwordHash: string) : User {
   return newUser;
 }
 
-export { registerUser, addUser };
+// function loginUser( ) : {
+//
+//
+//   return
+// }
 
+export { registerUser, addUser };
