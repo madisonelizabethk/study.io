@@ -23,5 +23,6 @@ function addUser(email: string, passwordHash: string) : User {
   // Return the created user
   return newUser;
 }
-export { registerUser };
+
+export { registerUser, addUser };
 

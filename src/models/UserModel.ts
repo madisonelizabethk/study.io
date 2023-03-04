@@ -17,21 +17,23 @@ async function addUser (email: string, passwordHash: string): Promise<User>{
   return newUser;
 }
 
-async function getAllUnverifiedUsers(): Promise<User[]>{
-  return userRepository.find({
-    select: { email: true, userId: true },
-    where: {verifiedEmail: false},
-  });
+async function getUserByEmail(email: string): Promise<User | null> {
+  return await userRepository.findOne({ where: { email } })
 }
 
-async function getUserByEmail(email: string): Promise<User | null>{
-  const user = await userRepository.findOne({ where: {email }});
+async function getUserById(userId: string): Promise<User | null> {
+  const user = await userRepository.findOne({ where: { userId } });
   return user;
 }
 
-async function getViralUsers(): Promise<User[]> {
-  const viralUsers = await userRepository
+async function getUsersByViews(minViews: number): Promised<User[]>{
+  const users = await userRepository
+     .createQueryBuilder('user')
+     .where('profileViews >= :minViews', { minViews });
+     .select(['user.email', 'user.profileViews', 'user.joinedOn', 'user.userId'])
+     .getMany();
 
+  return users;
 }
 
-export { addUser };
+export { addUser, getUserByEmail, getUserById, getUsersByViews };
