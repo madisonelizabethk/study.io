@@ -1,33 +1,46 @@
 import { Request, Response } from 'express';
-import { addUser } from '../models/UserModel';
+import argon2 from 'argon2';
+import { addUser, getUserByEmail } from '../models/UserModel';
+import { parseDatabaseError } from '../utils/db-utils';
 
 async function registerUser(req: Request, res: Response): Promise<void> {
-  const { email, password } = req.body as NewUserRequest;
+  const { email, password } = req.body as AuthRequest;
 
-  const newUser = await addUser(email, password);
-  console.log('\nAdded new user: ');
-  console.log(newUser);
+  // IMPORTANT: Hash the password
+  const passwordHash = await argon2.hash(password);
 
-  res.sendStatus(201); // 201 created
+  try {
+    const newUser = await addUser(email, passwordHash);
+    console.log(newUser);
+    res.sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    const databaseErrorMessage = parseDatabaseError(err);
+    res.status(500).json(databaseErrorMessage);
+  }
 }
 
-function addUser(email: string, passwordHash: string): User {
-  // Create a new user object and set the properties
-  let newUser = new User();
-  newUser.email = email;
-  newUser.passwordHash = passwordHash;
+async function logIn(req: Request, res: Response): Promise<void> {
+  const { email, password } = req.body as AuthRequest;
 
-  // Save it in the database
-  newUser = userRepository.save(newUser);
+  const user = await getUserByEmail(email);
 
-  // Return the created user
-  return newUser;
+  // Check if the user account exists for that email
+  if (!user) {
+    res.sendStatus(404); // Not Found
+    return;
+  }
+
+  // The account exists, check password
+  const { passwordHash } = user;
+
+  // If password does not match
+  if (!(await argon2.verify(passwordHash, password))) {
+    res.sendStatus(404); // Not found
+    return;
+  }
+
+  res.sendStatus(200); // OK
 }
 
-// function loginUser( ) : {
-//
-//
-//   return
-// }
-
-export { registerUser, addUser };
+export { registerUser, logIn };
