@@ -64,4 +64,4 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
   res.json(user); // Send back user data
 }
 
-export { registerUser, logIn };
+export { registerUser, logIn, getUserProfileData };
