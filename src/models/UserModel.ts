@@ -20,8 +20,8 @@ async function getUserByEmail(email: string): Promise<User | null> {
   return userRepository.findOne({ where: { email } });
 }
 
-async function getUserById(userId: string): Promise<User | null> {
-  const user = await userRepository.findOne({ where: { userId } });
+async function getUserById(userID: string): Promise<User | null> {
+  const user = await userRepository.findOne({ where: { userID } });
   return user;
 }
 
@@ -35,4 +35,47 @@ async function getUsersByViews(minViews: number): Promise<User[]> {
   return users;
 }
 
-export { addUser, getUserByEmail, getUserById, getUsersByViews };
+async function getAllUnverifiedUsers(): Promise<User[]> {
+  return userRepository.find({
+    select: { email: true, userID: true },
+    where: { verifiedEmail: false },
+  });
+}
+
+// Test unverified users function
+console.log(await getAllUnverifiedUsers());
+
+async function getViralUsers(): Promise<User[]> {
+  const viralUsers = await userRepository
+    .createQueryBuilder('user')
+    .where('profileViews >= :viralAmount', { viralAmount: 1000 })
+    .select(['user.email', 'user.profileViews'])
+    .getMany();
+
+  return viralUsers;
+}
+
+async function resetAllProfileViews(): Promise<void> {
+  await userRepository
+    .createQueryBuilder()
+    .update(User)
+    .set({ profileViews: 0 })
+    .where('unverified <> true')
+    .execute();
+}
+
+async function incrementProfileViews(userData: User): Promise<User> {
+  const updatedUser = userData;
+  updatedUser.profileViews += 1;
+
+  await userRepository
+    .createQueryBuilder()
+    .update(User)
+    .set({ profileViews: updatedUser.profileViews })
+    .where({ userId: updatedUser.userID })
+    .execute();
+
+  return updatedUser;
+}
+export { addUser, getUserByEmail, getUserById, getUsersByViews, getViralUsers };
+export { resetAllProfileViews, incrementProfileViews };

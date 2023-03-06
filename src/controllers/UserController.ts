@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
-import { addUser, getUserByEmail } from '../models/UserModel';
+import {
+  addUser,
+  getUserByEmail,
+  incrementProfileViews,
+  getUserProfileData,
+} from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 
 async function registerUser(req: Request, res: Response): Promise<void> {
@@ -41,6 +46,22 @@ async function logIn(req: Request, res: Response): Promise<void> {
   }
 
   res.sendStatus(200); // OK
+}
+
+async function getUserProfileData(req: Request, res: Response): Promise<void> {
+  const { userID } = req.params as UserIdParam;
+
+  // Get the user account
+  let user = await getUserById(userID);
+
+  if (!user) {
+    res.sendStatus(404); // Not found
+    return;
+  }
+  // Update profile views
+  user = await incrementProfileViews(user);
+
+  res.json(user); // Send back user data
 }
 
 export { registerUser, logIn };
