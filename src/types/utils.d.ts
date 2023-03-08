@@ -7,3 +7,7 @@ type DatabaseConstraintError = {
 type UserIdParam = {
   userID: string;
 };
+
+type NewEmailBody = {
+  newEmail: string;
+};

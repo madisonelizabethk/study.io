@@ -28,4 +28,7 @@ export class ClassInfo {
 
   @Column({ default: false })
   professorEmail: string;
+
+  @Column({ default: 0 })
+  officeHours: string;
 }

@@ -65,13 +65,4 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
   res.json(user); // Send back user data
 }
 
-async function updateUserEmail(userId: string, newEmail: string): Promise<void> {
-  await userRepository
-    .createQueryBuilder()
-    .updateUserEmail(User)
-    .set({ email: newEmail })
-    .where({ userID })
-    .execute();
-}
-
 export { registerUser, logIn, getUserProfileData };
