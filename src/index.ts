@@ -11,6 +11,7 @@ const { PORT } = process.env;
 app.post('/api/users', registerUser); // Create an account for the user
 app.post('/api/users/:userId/email', logIn); // Log in account
 app.get('/api/users/:userId', getUserProfileData);
+app.post('/api/users/:userId/email', updateEmailAddress);
 
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');
