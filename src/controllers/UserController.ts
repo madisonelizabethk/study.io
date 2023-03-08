@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
+import { executionAsyncResource } from 'async_hooks';
 import {
   addUser,
   getUserByEmail,
@@ -62,6 +63,15 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
   user = await incrementProfileViews(user);
 
   res.json(user); // Send back user data
+}
+
+async function updateUserEmail(userId: string, newEmail: string): Promise<void> {
+  await userRepository
+    .createQueryBuilder()
+    .updateUserEmail(User)
+    .set({ email: newEmail })
+    .where({ userID })
+    .execute();
 }
 
 export { registerUser, logIn, getUserProfileData };
