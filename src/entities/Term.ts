@@ -7,10 +7,4 @@ export class Term {
 
   @Column({ unique: true })
   vocabDefinition: string;
-
-  @Column({ default: 0 })
-  rightAnswerCounter: number;
-
-  @Column({ default: 0 })
-  WrongAnswerCounter: string;
 }
