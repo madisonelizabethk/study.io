@@ -84,7 +84,7 @@ async function updateEmailAddress(userId: string, newEmail: string): Promise<voi
     .update(User)
     .set({ email: newEmail })
     .where({ userId })
-    .execute(); // Returns a promise
+    .execute();
 }
 export { addUser, getUserByEmail, getUserById, getUsersByViews, getViralUsers };
 export { resetAllProfileViews, incrementProfileViews, updateEmailAddress };

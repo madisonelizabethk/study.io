@@ -6,6 +6,7 @@ import {
   getUserByEmail,
   incrementProfileViews,
   getUserProfileData,
+  updateEmailAddress,
 } from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 
@@ -65,4 +66,18 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
   res.json(user); // Send back user data
 }
 
-export { registerUser, logIn, getUserProfileData };
+async function updateUserEmail(req: Request, res: Response): Promise<void> {
+  const { newEmail } = req.params as NewEmailBody;
+
+  if (!newEmail) {
+    res.sendStatus(404);
+    return;
+  }
+
+  // Update email
+  newEmail = await updateEmailAddress(newEmail);
+
+  res.json(newEmail); // Send back email data
+}
+
+export { registerUser, logIn, getUserProfileData, updateUserEmail };
