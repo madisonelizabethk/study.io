@@ -3,11 +3,14 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Notification {
   @PrimaryGeneratedColumn('uuid')
-  assignment: string;
+  assignmentName: string;
 
   @Column({ unique: true })
   dueTime: number;
 
   @Column({ unique: true })
   class: string;
+
+  @Column({ unique: true })
+  assignmentType: number;
 }
