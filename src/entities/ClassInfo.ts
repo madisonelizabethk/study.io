@@ -2,9 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class ClassInfo {
-  @PrimaryGeneratedColumn('uuid')
-  classID: string;
-
   @Column({ unique: true })
   className: string;
 
