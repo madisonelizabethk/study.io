@@ -9,5 +9,5 @@ export class Counter {
   rightAnswerCounter: number;
 
   @Column({ default: 0 })
-  WrongAnswerCounter: number;
+  wrongAnswerCounter: number;
 }

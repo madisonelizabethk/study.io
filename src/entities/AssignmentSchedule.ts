@@ -9,8 +9,5 @@ export class AssignmentSchedule {
   assignmentType: string;
 
   @Column({ unique: true })
-  dueDate: string;
-
-  @Column({ unique: true })
-  dueTime: number;
+  dueDate: Date;
 }
