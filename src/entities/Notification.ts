@@ -13,7 +13,4 @@ export class Notification {
 
   @Column({ unique: true })
   class: string;
-
-  @Column({ unique: true })
-  assignmentType: number;
 }
