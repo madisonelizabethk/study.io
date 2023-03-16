@@ -3,11 +3,17 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class AssignmentSchedule {
   @PrimaryGeneratedColumn('uuid')
-  className: string;
+  assignmentId: string;
 
-  @Column({ unique: true })
+  @Column()
+  assignmentName: string;
+
+  @Column()
   assignmentType: string;
 
-  @Column({ unique: true })
+  @Column()
+  className: string;
+
+  @Column()
   dueDate: Date;
 }
