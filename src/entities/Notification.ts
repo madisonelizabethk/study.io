@@ -8,12 +8,12 @@ export class Notification {
   @Column()
   assignmentName: string;
 
-  @Column({ unique: true })
+  @Column()
   dueTime: number;
 
-  @Column({ unique: true })
+  @Column()
   dueDate: string;
 
-  @Column({ unique: true })
+  @Column()
   class: string;
 }
