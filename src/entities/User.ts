@@ -8,13 +8,13 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   studentID: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true }) // No relationship
   username: string;
 
   @Column({ unique: true })
   firstName: string;
 
-  @Column({ default: 0 })
+  @Column()
   lastName: string;
 
   @Column({ unique: true })
