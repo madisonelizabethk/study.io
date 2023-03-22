@@ -7,5 +7,5 @@ export class Quiz {
 
   @ManyToMany(() => Term, (term) => term.scores, { cascade: ['insert', 'update'] })
   @JoinTable()
-  vocabterms: Relation<Quiz>[];
+  vocabterms: Relation<Term>[];
 }

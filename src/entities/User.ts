@@ -1,12 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
+import { Term } from './Term';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   userID: string;
 
-  @OneToMany(() => Counter, (counter) => counter.quiz, { cascade: ['insert', 'update'] })
-  counter: Relation<Counter>[];
+  @OneToMany(() => Counter, (counter) => counter.scores, { cascade: ['insert', 'update'] })
+  counter: Relation<Term>[];
 
   @PrimaryGeneratedColumn('uuid')
   studentID: string;

@@ -8,7 +8,7 @@ export class Term {
 
   @ManyToMany(() => Quiz, (quiz) => quiz.vocabTerms, { cascade: ['insert', 'update'] })
   @JoinTable()
-  vocabTerms: Relation<Quiz>[];
+  vocabTerms: Relation<Term>[];
 
   @Column({ unique: true })
   vocabDefinition: string;
