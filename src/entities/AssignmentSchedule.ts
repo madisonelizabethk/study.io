@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
 
 @Entity()
 export class AssignmentSchedule {
@@ -16,4 +16,9 @@ export class AssignmentSchedule {
 
   @Column()
   dueDate: Date;
+
+  @OneToMany(() => Notification, (notification) => notification.schedule, {
+    cascade: ['insert', 'update'],
+  })
+  notifications: Relation<Notification>[];
 }
