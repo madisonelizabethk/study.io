@@ -6,8 +6,8 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   userID: string;
 
-  @OneToMany(() => Counter, (counter) => counter.scores, { cascade: ['insert', 'update'] })
-  counter: Relation<Term>[];
+  @OneToMany(() => Counter, (counter) => counter.user, { cascade: ['insert', 'update'] })
+  counters: Relation<Counter>[];
 
   @PrimaryGeneratedColumn('uuid')
   studentID: string;

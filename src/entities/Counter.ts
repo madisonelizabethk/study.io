@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, Relation } from 'typeorm';
 
 @Entity()
 export class Counter {
@@ -7,6 +7,9 @@ export class Counter {
 
   @OneToMany(() => Quiz, (quiz) => quiz.scores, { cascade: ['insert', 'update'] })
   quiz: Relation<Quiz>[];
+
+  @ManyToOne(() => User, (user) => user.counters, { cascade: ['insert', 'update'] })
+  user: Relation<User>;
 
   @Column()
   setName: string;
