@@ -5,7 +5,7 @@ export class Counter {
   @PrimaryGeneratedColumn('uuid')
   counterId: string;
 
-  @OneToMany(() => Quiz, (quiz) => quiz.scores, { cascade: ['insert', 'update'] })
+  @ManyToOne(() => Quiz, (quiz) => quiz.scores, { cascade: ['insert', 'update'] })
   quiz: Relation<Quiz>[];
 
   @ManyToOne(() => User, (user) => user.counters, { cascade: ['insert', 'update'] })
