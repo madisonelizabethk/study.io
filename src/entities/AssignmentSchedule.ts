@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
+import { Notification } from './Notification';
 
 @Entity()
 export class AssignmentSchedule {

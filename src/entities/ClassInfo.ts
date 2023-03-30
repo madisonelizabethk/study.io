@@ -1,34 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Relation } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class ClassInfo {
   @PrimaryGeneratedColumn('uuid')
   classID: string;
 
-  @Column({ unique: true })
+  // Many to Many Relationship with User
+  @ManyToMany(() => User, (user) => user.info, { cascade: ['insert', 'update'] })
+  user: Relation<User>[];
+
+  @Column()
   className: string;
 
-  @Column({ unique: true })
-  studentID: string;
-
-  @Column({ unique: true })
-  passwordHash: string;
-
-  @Column({ unique: true })
+  @Column()
   classTimes: number;
 
-  @Column({ default: 0 })
+  @Column()
   classTextbook: string;
 
-  @Column({ default: 0 })
-  gradingScale: number;
-
-  @Column({ unique: true })
+  @Column()
   courseDescription: string;
 
-  @Column({ default: false })
+  @Column() // make null
   professorEmail: string;
 
-  @Column({ default: 0 })
+  @Column() // make null
   officeHours: string;
 }
