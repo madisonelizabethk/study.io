@@ -10,20 +10,20 @@ export class User {
   userID: string;
 
   // Many to Many Relationship with ClassInfo
-  @ManyToMany(() => ClassInfo, (info) => info.user, { cascade: ['insert', 'update'] })
+  @ManyToMany(() => ClassInfo, (info) => info.users, { cascade: ['insert', 'update'] })
   info: Relation<ClassInfo>[];
 
   // Many to Many Relationship with Quiz
-  @ManyToMany(() => Quiz, (quiz) => quiz.user, { cascade: ['insert', 'update'] })
-  quiz: Relation<Quiz>[];
+  @ManyToMany(() => Quiz, (quizzes) => quizzes.users, { cascade: ['insert', 'update'] })
+  quizzes: Relation<Quiz>[];
 
   // One to Many Relationship with Counter
-  @OneToMany(() => Counter, (counter) => counter.user, { cascade: ['insert', 'update'] })
+  @OneToMany(() => Counter, (counter) => counter.users, { cascade: ['insert', 'update'] })
   counters: Relation<Counter>[];
 
   // Many to Many Relationship with Term
-  @ManyToMany(() => Term, (term) => term.user, { cascade: ['insert', 'update'] })
-  term: Relation<Term>[];
+  @ManyToMany(() => Term, (terms) => terms.users, { cascade: ['insert', 'update'] })
+  terms: Relation<Term>[];
 
   @Column() // No relationship
   username: string;

@@ -7,15 +7,18 @@ export class Term {
   @PrimaryGeneratedColumn('uuid')
   termId: string;
 
+  @Column()
+  question: string;
+
   // Many to Many Relationship with Quiz
-  @ManyToMany(() => Quiz, (quiz) => quiz.term, { cascade: ['insert', 'update'] })
+  @ManyToMany(() => Quiz, (quiz) => quiz.terms, { cascade: ['insert', 'update'] })
   @JoinTable()
   scores: Relation<Quiz>[];
 
   // Many to Many Relationship with User
-  @ManyToMany(() => User, (user) => user.term, { cascade: ['insert', 'update'] })
-  user: Relation<User>[];
+  @ManyToMany(() => User, (users) => users.terms, { cascade: ['insert', 'update'] })
+  users: Relation<User>[];
 
   @Column()
-  vocabDefinition: string;
+  answer: string;
 }

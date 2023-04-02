@@ -17,10 +17,4 @@ export class AssignmentSchedule {
 
   @Column()
   dueDate: Date;
-
-  // One assignment schedule to many notifications
-  @OneToMany(() => Notification, (notification) => notification.assignments, {
-    cascade: ['insert', 'update'],
-  })
-  notifications: Relation<Notification>[];
 }

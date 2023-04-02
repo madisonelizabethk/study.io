@@ -13,7 +13,7 @@ import {
 } from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 
-async function getAllUserProfiles(req: Request, res: Response): Promise<Void> {
+async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
   res.json(await allUserData());
 }
 
@@ -152,11 +152,17 @@ async function updateUserEmail(req: Request, res: Response): Promise<void> {
 
 }
 
+// Get Questions and Answers From User
+async function getTerms(req: Request, res: Response): Promise <void> {
+
+}
+
 export {
   registerUser,
   logIn,
   getUserProfileData,
   getAllUserProfiles,
   resetProfileViews,
-  updateUserEmail
+  updateUserEmail,
+  getTerms
 };

@@ -7,8 +7,8 @@ export class ClassInfo {
   classID: string;
 
   // Many to Many Relationship with User
-  @ManyToMany(() => User, (user) => user.info, { cascade: ['insert', 'update'] })
-  user: Relation<User>[];
+  @ManyToMany(() => User, (users) => users.info, { cascade: ['insert', 'update'] })
+  users: Relation<User>[];
 
   @Column()
   className: string;

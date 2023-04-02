@@ -29,39 +29,6 @@ async function getUserbyId(userID: string): Promise<User | null> {
   return user;
 }
 
-async function getUsersByViews(minViews: number): Promise<User[]> {
-  const users = await userRepository
-    .createQueryBuilder('user')
-    .where('profileViews >= :minViews', { minViews })
-    .select(['user.email', 'user.profileViews', 'user.joinedOn', 'user.userID'])
-    .getMany();
-
-  return users;
-}
-
-async function incrementProfileViews(userData: User): Promise<User> {
-  const updatedUser = userData;
-  updatedUser.profileViews += 1;
-
-  await userRepository
-    .createQueryBuilder()
-    .update(User)
-    .set({ profileViews: updatedUser.profileViews })
-    .where({ userID: updatedUser.userID })
-    .execute();
-
-  return updatedUser;
-}
-
-async function resetAllProfileViews(): Promise<void> {
-  await userRepository
-    .createQueryBuilder()
-    .update(User)
-    .set({ profileViews: 0 })
-    .where({ userID })
-    .execute();
-}
-
 async function updateEmailAddress(userID: string, newEmail: string): Promise<void> {
   await userRepository
     .createQueryBuilder()
@@ -71,13 +38,4 @@ async function updateEmailAddress(userID: string, newEmail: string): Promise<voi
     .execute();
 }
 
-export {
-  addUser,
-  getUserByEmail,
-  getUserbyId,
-  getUsersByViews,
-  incrementProfileViews,
-  allUserData,
-  resetAllProfileViews,
-  updateEmailAddress,
-};
+export { addUser, getUserByEmail, getUserbyId, allUserData, updateEmailAddress };

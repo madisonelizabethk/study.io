@@ -17,9 +17,4 @@ export class Notification {
 
   @Column()
   class: string;
-
-  @ManyToOne(() => AssignmentSchedule, (assignment) => assignment.notification, {
-    cascade: ['insert', 'update'],
-  })
-  assignments: Relation<AssignmentScehdule>;
 }

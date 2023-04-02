@@ -8,15 +8,12 @@ export class Counter {
   counterId: string;
 
   // Many to One Relationship with Quiz
-  @ManyToOne(() => Quiz, (quiz) => quiz.scores, { cascade: ['insert', 'update'] })
-  quiz: Relation<Quiz>[];
+  @ManyToOne(() => Quiz, (quizzes) => quizzes.scores, { cascade: ['insert', 'update'] })
+  quizzes: Relation<Quiz>[];
 
   // Many to One Relationship with User
-  @ManyToOne(() => User, (user) => user.counters, { cascade: ['insert', 'update'] })
-  user: Relation<User>;
-
-  @Column()
-  setName: string;
+  @ManyToOne(() => User, (users) => users.counters, { cascade: ['insert', 'update'] })
+  users: Relation<User>;
 
   @Column({ default: 0 })
   rightAnswerCounter: number;
