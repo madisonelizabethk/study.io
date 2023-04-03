@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class StudyTimer {
   @PrimaryGeneratedColumn('uuid')
-  classID: string;
+  timerID: string;
 
   @Column({ default: 0 })
   startTime: number;

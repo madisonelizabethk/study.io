@@ -1,5 +1,6 @@
 import { AppDataSource } from '../dataSource';
 import { ClassInfo } from '../entities/ClassInfo';
+import { User } from '../entities/User';
 
 const classRepository = AppDataSource.getRepository(ClassInfo);
 
@@ -15,26 +16,34 @@ async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
   return classes;
 }
 
+// Function: Get courses by classID
+async function getCoursesByClassID(classID: string): Promise<ClassInfo[]> {
+  await classRepository.createQueryBuilder('class').where({ classID }).getOne();
+}
+
 // Function: Get courses by class name
 async function getCoursesByClassName(className: string): Promise<ClassInfo[]> {
   await classRepository.createQueryBuilder('class').where({ className }).getMany();
 }
 
-// Function: Get courses by classID
-async function getCoursesByClassID(classID: string): Promise<ClassInfo[]> {
-  await classRepository.createQueryBuilder('class').where({ classID }).getMany();
-}
-
 // Function: Add a class
 async function addClassInfo(
-  classID: string,
   className: string,
-  classTimes: number
+  user: User,
+  classTimes: number,
+  classTextbook: string,
+  courseDescription: string,
+  professorEmail: string,
+  officeHours: string
 ): Promise<ClassInfo> {
   const newClass = new ClassInfo();
-  newClass.classID = classID;
   newClass.className = className;
+  newClass.user = user;
   newClass.classTimes = classTimes;
+  newClass.classTextbook = classTextbook;
+  newClass.courseDescription = courseDescription;
+  newClass.professorEmail = professorEmail;
+  newClass.officeHours = officeHours;
 
   newClass = await classRepository.save(newClass);
 
