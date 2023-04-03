@@ -1,18 +1,10 @@
 import { Request, Response } from 'express';
+import { allClassData } from '../models/ClassModel';
 
-// async function getClassInfo
-
-async function getClassName(req: Request, res: Response): Promise<void> {
-  const { studentID } = req.body;
-
-  let class = await(getClassInfo);
-
-  if (!class) {
-    res.sendStatus(404); // Class Name Not found
-    return;
-  }
-
-  res.json(class); // Send back user data
+async function getAllClasses(req: Request, res: Response): Promise<void> {
+  res.json(await allClassData());
 }
 
-export { getClassName };
+async function addClass(req: Request, res: Reponse): Promise<void> {}
+
+export { getAllClasses, addClass };

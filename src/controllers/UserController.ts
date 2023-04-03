@@ -109,11 +109,6 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
   res.json(user); // Send back user data
 }
 
-async function resetProfileViews(req: Request, res: Response): Promise<void> {
-  await resetAllProfileViews();
-  res.sendStatus(200);
-}
-
 async function updateUserEmail(req: Request, res: Response): Promise<void> {
   const { targetUserID } = req.params as UserIdParam;
 
@@ -152,17 +147,11 @@ async function updateUserEmail(req: Request, res: Response): Promise<void> {
 
 }
 
-// Get Questions and Answers From User
-async function getTerms(req: Request, res: Response): Promise <void> {
-
-}
 
 export {
   registerUser,
   logIn,
   getUserProfileData,
   getAllUserProfiles,
-  resetProfileViews,
   updateUserEmail,
-  getTerms
 };

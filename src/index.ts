@@ -9,9 +9,9 @@ import {
   logIn,
   getUserProfileData,
   getAllUserProfiles,
-  resetProfileViews,
   updateUserEmail,
 } from './controllers/UserController';
+import { getAllClasses } from './controllers/ClassController';
 
 const app: Express = express();
 const { PORT, COOKIE_SECRET } = process.env;
@@ -33,11 +33,12 @@ app.use(express.json());
 
 app.post('/api/users', registerUser); // Create an account for the user
 app.post('/api/login', logIn); // Log in to an account
-app.post('/api/users/profileViews/reset', resetProfileViews); // Log in to an account
 
 app.get('/api/users', getAllUserProfiles);
 app.get('/api/users/:targetUserID', getUserProfileData);
 app.post('/api/users/:targetUserID/email', updateUserEmail);
+
+app.get('/api/classes', getAllClasses);
 
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');

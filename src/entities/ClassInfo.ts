@@ -22,9 +22,9 @@ export class ClassInfo {
   @Column()
   courseDescription: string;
 
-  @Column() // make null
+  @Column({ nullable: true })
   professorEmail: string;
 
-  @Column() // make null
+  @Column({ nullable: true })
   officeHours: string;
 }
