@@ -12,6 +12,7 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
+import { getTermsFromUser } from './models/TermModel';
 
 const app: Express = express();
 const { PORT, COOKIE_SECRET } = process.env;
@@ -39,6 +40,7 @@ app.get('/api/users/:targetUserID', getUserProfileData);
 app.post('/api/users/:targetUserID/email', updateUserEmail);
 
 app.get('/api/classes', getAllClasses);
+app.get('api/terms', getTermsFromUser);
 
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');
