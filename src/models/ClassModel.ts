@@ -29,7 +29,7 @@ async function getCoursesByClassName(className: string): Promise<ClassInfo[]> {
 // Function: Add a class
 async function addClassInfo(
   className: string,
-  user: User,
+  users: User[],
   classTimes: number,
   classTextbook: string,
   courseDescription: string,
@@ -38,7 +38,7 @@ async function addClassInfo(
 ): Promise<ClassInfo> {
   const newClass = new ClassInfo();
   newClass.className = className;
-  newClass.user = user;
+  newClass.users = users;
   newClass.classTimes = classTimes;
   newClass.classTextbook = classTextbook;
   newClass.courseDescription = courseDescription;
