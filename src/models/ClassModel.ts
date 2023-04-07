@@ -36,7 +36,7 @@ async function addClassInfo(
   professorEmail: string,
   officeHours: string
 ): Promise<ClassInfo> {
-  const newClass = new ClassInfo();
+  let newClass = new ClassInfo();
   newClass.className = className;
   newClass.users = users;
   newClass.classTimes = classTimes;

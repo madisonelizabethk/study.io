@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { allTermData, getTermsFromUser } from '../models/TermModel';
+import { allTermData, getTermsByUserID } from '../models/TermModel';
 
 async function getTerm(req: Request, res: Response): Promise<void> {
   const { termID } = req.params as { termID: string };
 
-  const term = await getTermsFromUser(termId);
+  const term = await getTermsByUserID(termId);
 
   if (!term) {
     res.sendStatus(404); // Not found

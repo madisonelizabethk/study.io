@@ -42,6 +42,10 @@ app.post('/api/users/:targetUserID/email', updateUserEmail);
 app.get('/api/classes', getAllClasses);
 app.get('api/terms', getTermsFromUser);
 
+// Add endpoints for terms
+// controller get terms/create terms
+// html page for creating terms (make sure user is logged in)
+
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');
 });

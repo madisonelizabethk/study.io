@@ -4,10 +4,8 @@ import { addMinutes, isBefore, parseISO, formatDistanceToNow } from 'date-fns';
 import {
   addUser,
   getUserByEmail,
-  getUserById,
-  incrementProfileViews,
+  getUserbyId,
   allUserData,
-  resetAllProfileViews,
   getUserProfileData,
   updateEmailAddress,
 } from '../models/UserModel';
@@ -41,17 +39,6 @@ async function logIn(req: Request, res: Response): Promise<void> {
   // Notes: We need to convert the date string back into a Date() object
   // 'parseISO()' does the conversion
 
-  const logInTimeout = parseISO(req.session.logInTimeout);
-  // Notes: If the client has a timeout set and it has not expired
-  if (logInTimeout && isBefore(now, logInTimeout)) {
-    // Notes: This will create a human friendly duration message
-    const timeRemaining = formatDistanceToNow(logInTimeout);
-    const message = `You have ${timeRemaining} remaining.`;
-    // Notes: Reject their request
-    res.status(429).send(message); // Too Many Requests
-
-    return;
-  }
 
   const { email, password } = req.body as AuthRequest;
 

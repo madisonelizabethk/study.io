@@ -1,6 +1,5 @@
 import { AppDataSource } from '../dataSource';
 import { Term } from '../entities/Term';
-import { Quiz } from '../entities/Quiz';
 import { User } from '../entities/User';
 
 const termRepository = AppDataSource.getRepository(Term);
@@ -11,20 +10,27 @@ async function allTermData(): Promise<Term[]> {
 }
 
 // Function: Get terms from user
-// Fix this function
-async function getTermsFromUser(termID: string, question: string): Promise<User | null> {
-  const terms = await termRepository.createQueryBuilder('terms').where().getMany();
+async function getTermsByUserID(userID: string): Promise<Term[]> {
+  const terms = await termRepository
+    .createQueryBuilder('terms')
+    .leftJoinAndSelect('terms.users', 'users')
+    .where('users.userID = :userID', { userID })
+    .getMany();
+
+  return terms;
 }
 
 // Function: Add a Term
-async function addTerm(question: string, scores: Quiz, user: User, answer: string): Promise<Term> {
-  const newTerm = new Term();
+async function addTerm(question: string, user: User, answer: string): Promise<Term> {
+  let newTerm = new Term();
   newTerm.question = question;
-  newTerm.scores = scores;
-  newTerm.user = user;
+  newTerm.quizzes = [];
+  newTerm.users = [user];
   newTerm.answer = answer;
 
   newTerm = await termRepository.save(newTerm);
+
+  return newTerm;
 }
 
-export { allTermData, getTermsFromUser, addTerm };
+export { allTermData, getTermsByUserID, addTerm };

@@ -10,15 +10,15 @@ export class Term {
   @Column()
   question: string;
 
+  @Column()
+  answer: string;
+
   // Many to Many Relationship with Quiz
   @ManyToMany(() => Quiz, (quiz) => quiz.terms, { cascade: ['insert', 'update'] })
   @JoinTable()
-  scores: Relation<Quiz>[];
+  quizzes: Relation<Quiz>[];
 
   // Many to Many Relationship with User
   @ManyToMany(() => User, (users) => users.terms, { cascade: ['insert', 'update'] })
   users: Relation<User>[];
-
-  @Column()
-  answer: string;
 }
