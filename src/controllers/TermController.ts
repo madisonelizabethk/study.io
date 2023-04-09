@@ -4,18 +4,19 @@ import { allTermData, getTermsByUserID } from '../models/TermModel';
 async function getTerm(req: Request, res: Response): Promise<void> {
   const { termID } = req.params as { termID: string };
 
-  const term = await getTermsByUserID(termId);
+  const term = await getTermsByUserID(termID);
 
   if (!term) {
     res.sendStatus(404); // Not found
     return;
   }
 
+  console.log(term);
+
   res.status(200).json(term);
 }
 
 async function getAllTerms(req: Request, res: Response): Promise<void> {
-  res.status(200).json(await getTermsFromUser());
+  res.status(200).json(await getTermsByUserID());
 }
-
 export { getTerm, getAllTerms };
