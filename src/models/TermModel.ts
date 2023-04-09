@@ -9,7 +9,7 @@ async function allTermData(): Promise<Term[]> {
   return termRepository.find();
 }
 
-// Function: Get terms from user
+// Function: Get terms from database by userID
 async function getTermsByUserID(userID: string): Promise<Term[]> {
   const terms = await termRepository
     .createQueryBuilder('terms')
