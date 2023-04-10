@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> Add Study Term or Question | Study.IO</title>
+  <title> Add Study Definition or Answer | Study.IO</title>
+</head>
+
+<body>
+
+
+</body>
+<form method="POST" action ="/api/terms">
+  <div>
+    <label for="Study Term/Question">Study Term/Question:</label>
+    <input type="text" id="Study Term/Question" name="Study Term/Question" required>
+  </div>
+
+  <div>
+    <label for="Study Definition/Answer">Study Definition/Answer:</label>
+    <input type="text" id="Study Definition/Answer" name="Study Defintion/Answer" required
+  </div>
+
+  <div>
+    <label for="inPublicDomain">In Public Domain:</label>
+    <input type="checkbox" id="inPublicDomain" name="inPublicDomain">
+  </div>
+
+  <button>Submit Terms</button>
+</form>
+
+</html>

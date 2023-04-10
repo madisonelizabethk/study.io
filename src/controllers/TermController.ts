@@ -16,7 +16,7 @@ async function getTerm(req: Request, res: Response): Promise<void> {
   res.status(200).json(term);
 }
 
-async function getAllTerms(req: Request, res: Response): Promise<void> {
-  res.status(200).json(await getTermsByUserID());
+async function getAllTerms(req: Request, res: Response, userID: string): Promise<void> {
+  res.status(200).json(await getTermsByUserID(userID));
 }
 export { getTerm, getAllTerms };
