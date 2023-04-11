@@ -1,5 +1,23 @@
 import { Request, Response } from 'express';
-import { allTermData, getTermsByUserID } from '../models/TermModel';
+import { allTermData, getTermsByUserID, addTerm } from '../models/TermModel';
+
+async function createTerm(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn } = req.session;
+  if (!isLoggedIn) {
+    res.sendStatus(401);
+    res.redirect('/login');
+    return;
+  }
+
+  const { question, answer, inPublicDomain } = req.body as NewTermRequest;
+  console.log(`inPublicDomain: ${inPublicDomain}`);
+  console.log(`inPublicDomain after converting: ${!!inPublicDomain}`);
+
+  const term = await addTerm(question, answer, !!inPublicDomain);
+  console.log(term);
+
+  res.sendStatus(201).json(term);
+}
 
 async function getTerm(req: Request, res: Response): Promise<void> {
   const { termID } = req.params as { termID: string };

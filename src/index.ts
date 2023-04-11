@@ -12,16 +12,21 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
-import { getTermsFromUser } from './models/TermModel';
+import { getTermsByUserID, addTerm } from './models/TermModel';
+import { getTerm, createTerm } from './controllers/TermController';
 
 const app: Express = express();
+app.set('view engine', 'ejs');
 const { PORT, COOKIE_SECRET } = process.env;
 
 const SQLiteStore = connectSqlite3(session);
+const store = new SQLiteStore({ db: 'sessions.sqlite' });
+
+app.use(express.static('public', { extensions: ['html'] }));
 
 app.use(
   session({
-    store: new SQLiteStore({ db: 'sessions.sqlite' }),
+    store,
     secret: COOKIE_SECRET,
     cookie: { maxAge: 8 * 60 * 60 * 1000 }, // 8 hours
     name: 'session',
@@ -30,6 +35,7 @@ app.use(
   })
 );
 
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.post('/api/users', registerUser); // Create an account for the user
@@ -40,7 +46,10 @@ app.get('/api/users/:targetUserID', getUserProfileData);
 app.post('/api/users/:targetUserID/email', updateUserEmail);
 
 app.get('/api/classes', getAllClasses);
-app.get('api/terms', getTermsFromUser);
+
+app.get('api/terms', getTermsByUserID);
+app.get('/terms/:termID', getTerm);
+app.post('/api/terms', createTerm);
 
 // Add endpoints for terms
 // controller get terms/create terms
