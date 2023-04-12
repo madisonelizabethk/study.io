@@ -8,6 +8,7 @@ const classRepository = AppDataSource.getRepository(ClassInfo);
 async function allClassData(): Promise<ClassInfo[]> {
   return classRepository.find();
 }
+
 // Function: Get courses by professor email
 // Pass email as a parameter, return array of courses
 async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
