@@ -18,12 +18,12 @@ async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
 }
 
 // Function: Get courses by classID
-async function getCoursesByClassID(classID: string): Promise<ClassInfo[]> {
+async function getCoursesByClassID(classID: string): Promise<void> {
   await classRepository.createQueryBuilder('class').where({ classID }).getOne();
 }
 
 // Function: Get courses by class name
-async function getCoursesByClassName(className: string): Promise<ClassInfo[]> {
+async function getCoursesByClassName(className: string): Promise<void> {
   await classRepository.createQueryBuilder('class').where({ className }).getMany();
 }
 

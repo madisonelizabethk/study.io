@@ -12,9 +12,14 @@ async function allQuizData(): Promise<Quiz[]> {
 }
 
 // Function: Add a quiz
-async function addQuiz(users: User, terms: Term, scores: Counter, setName: string): Promise<Quiz> {
+async function addQuiz(
+  users: User[],
+  terms: Term[],
+  scores: Counter[],
+  setName: string
+): Promise<Quiz> {
   let newQuiz = new Quiz();
-  newQuiz.users = User[];
+  newQuiz.users = users;
   newQuiz.terms = terms;
   newQuiz.scores = scores;
   newQuiz.setName = setName;
@@ -25,15 +30,15 @@ async function addQuiz(users: User, terms: Term, scores: Counter, setName: strin
 }
 
 async function getQuizById(quizID: string): Promise<Quiz[]> {
-  return await quizRepository
-  .createQueryBuilder('quiz')
-  .where({ where: { quizID }})
-  .leftJoin('quiz.user', 'user')
-  .select() // Finish this
-  .getMany();
+  return quizRepository
+    .createQueryBuilder('quiz')
+    .where({ where: { quizID } })
+    .leftJoin('quiz.user', 'user')
+    .select() // Finish this
+    .getMany();
 }
 
-async function getQuizzesByUserId(userID: string, users: User[], terms: Term[], scores: Counter[], setName: string): Promise<Quiz[]> {
+async function getQuizzesByUserId(userID: string): Promise<Quiz[]> {
   const quiz = await quizRepository
     .createQueryBuilder('quiz')
     .leftJoinAndSelect('quiz.user', 'user')
