@@ -22,7 +22,7 @@ export class Quiz {
   users: Relation<User>[];
 
   // Many to Many Relationship with Quiz
-  @ManyToMany(() => Term, (term) => term.scores, { cascade: ['insert', 'update'] })
+  @ManyToMany(() => Term, (term) => term.quizzes, { cascade: ['insert', 'update'] })
   @JoinTable()
   terms: Relation<Term>[];
 

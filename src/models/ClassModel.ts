@@ -18,19 +18,21 @@ async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
 }
 
 // Function: Get courses by classID
-async function getCoursesByClassID(classID: string): Promise<void> {
-  await classRepository.createQueryBuilder('class').where({ classID }).getOne();
+async function getCourseByClassID(classID: string): Promise<ClassInfo | null> {
+  const classInfo = await classRepository.createQueryBuilder('class').where({ classID }).getOne();
+  return classInfo;
 }
 
 // Function: Get courses by class name
-async function getCoursesByClassName(className: string): Promise<void> {
-  await classRepository.createQueryBuilder('class').where({ className }).getMany();
+async function getCoursesByClassName(className: string): Promise<ClassInfo[]> {
+  const classes = await classRepository.createQueryBuilder('class').where({ className }).getMany();
+  return classes;
 }
 
 // Function: Add a class
 async function addClassInfo(
   className: string,
-  users: User[],
+  user: User,
   classTimes: number,
   classTextbook: string,
   courseDescription: string,
@@ -39,7 +41,7 @@ async function addClassInfo(
 ): Promise<ClassInfo> {
   let newClass = new ClassInfo();
   newClass.className = className;
-  newClass.users = users;
+  newClass.users = [user];
   newClass.classTimes = classTimes;
   newClass.classTextbook = classTextbook;
   newClass.courseDescription = courseDescription;
@@ -52,7 +54,7 @@ async function addClassInfo(
 }
 export {
   getCoursesByProfessorEmail,
-  getCoursesByClassID,
+  getCourseByClassID,
   addClassInfo,
   allClassData,
   getCoursesByClassName,

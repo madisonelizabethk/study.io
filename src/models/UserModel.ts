@@ -24,7 +24,7 @@ async function allUserData(): Promise<User[]> {
   return userRepository.find();
 }
 
-async function getUserbyId(userID: string): Promise<User | null> {
+async function getUserById(userID: string): Promise<User | null> {
   const user = await userRepository.findOne({ where: { userID } });
   return user;
 }
@@ -38,4 +38,4 @@ async function updateEmailAddress(userID: string, newEmail: string): Promise<voi
     .execute();
 }
 
-export { addUser, getUserByEmail, getUserbyId, allUserData, updateEmailAddress };
+export { addUser, getUserByEmail, getUserById, allUserData, updateEmailAddress };

@@ -4,10 +4,6 @@ type DatabaseConstraintError = {
   message?: string;
 };
 
-type UserIdParam = {
-  userID: string;
-};
-
 type NewEmailBody = {
   newEmail: string;
 };

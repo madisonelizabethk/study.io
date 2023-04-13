@@ -1,39 +1,53 @@
 import { Request, Response } from 'express';
-import { addClassInfo, allClassData, getCoursesByClassID } from '../models/ClassModel';
+import { addClassInfo, allClassData, getCourseByClassID } from '../models/ClassModel';
+import { getUserById } from '../models/UserModel';
 
 async function getAllClasses(req: Request, res: Response): Promise<void> {
   res.json(await allClassData());
 }
 
 async function createClassInfo(req: Request, res: Response): Promise<void> {
-  const { isLoggedIn } = req.session;
+  const { isLoggedIn, authenticatedUser } = req.session;
   if (!isLoggedIn) {
     // res.sendStatus(401)
     res.redirect('/login');
     return;
   }
-  const { className, classTimes, classTextbook, courseDescription, inPublicDomain } =
+  const { userID } = authenticatedUser;
+  const user = await getUserById(userID);
+  if (!user) {
+    res.redirect('/login');
+    return;
+  }
+
+  const { className, classTimes, classTextbook, courseDescription, professorEmail, officeHours } =
     req.body as NewClassRequest;
-  console.log(`inPublicDomain: ${inPublicDomain}`);
-  console.log(`inPublicDomain after converting: ${!!inPublicDomain}`);
 
-  const class = await addClassInfo( className, classTimes, classTextbook, courseDescription, !!inPublicDomain);
-  console.log(class);
+  const classInfo = await addClassInfo(
+    className,
+    user,
+    classTimes,
+    classTextbook,
+    courseDescription,
+    professorEmail,
+    officeHours
+  );
+  console.log(classInfo);
 
-  res.status(201).json(class);
+  res.status(201).json(classInfo);
 }
 
 async function getClassInfo(req: Request, res: Response): Promise<void> {
   const { classID } = req.params as { classID: string };
 
-  const class = await getCoursesByClassID(classID);
+  const classInfo = await getCourseByClassID(classID);
 
-  if (!class) {
+  if (!classInfo) {
     res.sendStatus(404);
     return;
   }
 
-  res.render('classPage', { class });
+  res.render('classPage', { classInfo });
 }
 
 export { getAllClasses, createClassInfo, getClassInfo };

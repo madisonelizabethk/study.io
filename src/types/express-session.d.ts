@@ -10,7 +10,5 @@ declare module 'express-session' {
       email: string;
     };
     isLoggedIn: boolean;
-    logInAttempts: number;
-    logInTimeout: string;
   }
 }

@@ -16,7 +16,4 @@ export class StudyTimer {
 
   @Column({ default: 0 })
   endTime: number;
-
-  @Column({ default: true })
-  taskCompletion: Array<Task>;
 }

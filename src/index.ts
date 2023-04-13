@@ -12,7 +12,7 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
-import { getTermsByUserID, addTerm } from './models/TermModel';
+import { getTermsByUserID } from './models/TermModel';
 import { getTerm, createTerm } from './controllers/TermController';
 
 const app: Express = express();
