@@ -57,4 +57,5 @@ app.post('/api/terms', createTerm);
 
 app.listen(PORT, () => {
   console.log('Listening at http://localhost:${PORT}');
+  console.log(`My database is called: ${process.env.DATABASE_NAME}`);
 });
