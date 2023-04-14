@@ -56,6 +56,6 @@ app.post('/api/terms', createTerm);
 // html page for creating terms (make sure user is logged in)
 
 app.listen(PORT, () => {
-  console.log('Listening at http://localhost:${PORT}');
+  console.log(`Listening at http://localhost:${PORT}`);
   console.log(`My database is called: ${process.env.DATABASE_NAME}`);
 });
