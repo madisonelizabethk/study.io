@@ -20,8 +20,7 @@ async function getTermsByUserID(userID: string): Promise<Term[]> {
   return terms;
 }
 
-// Function: Add a Term
-async function addTerm(question: string, user: User, answer: string): Promise<Term> {
+async function insertTerm(question: string, user: User, answer: string): Promise<Term> {
   let newTerm = new Term();
   newTerm.question = question;
   newTerm.quizzes = [];
@@ -33,4 +32,4 @@ async function addTerm(question: string, user: User, answer: string): Promise<Te
   return newTerm;
 }
 
-export { allTermData, getTermsByUserID, addTerm };
+export { allTermData, getTermsByUserID, insertTerm };

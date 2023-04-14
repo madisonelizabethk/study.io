@@ -1,0 +1,12 @@
+Terms/Definitions:
+
+The Welcome Page will contain two options for the user to either click:
+1. Add new terms to the database
+2. View already existing terms
+
+Add New Terms - HTML Page that will require user input for brand new terms that need to be stored
+
+View Existing Terms - Endpoint for GET /terms for existing terms that are stored in the database
+
+
+Will need to implement a button that completes adding the terms

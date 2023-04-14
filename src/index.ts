@@ -12,8 +12,8 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
-import { getTermsByUserID } from './models/TermModel';
-import { getTerm, createTerm } from './controllers/TermController';
+import { getTermsByUserID, insertTerm } from './models/TermModel';
+import { getTerm } from './controllers/TermController';
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -49,11 +49,7 @@ app.get('/api/classes', getAllClasses);
 
 app.get('api/terms', getTermsByUserID);
 app.get('/terms/:termID', getTerm);
-app.post('/api/terms', createTerm);
-
-// Add endpoints for terms
-// controller get terms/create terms
-// html page for creating terms (make sure user is logged in)
+app.post('/api/terms', insertTerm);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);
