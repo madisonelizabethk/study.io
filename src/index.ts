@@ -12,8 +12,7 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
-import { getTermsByUserID, insertTerm } from './models/TermModel';
-import { getTerm } from './controllers/TermController';
+import { addNewTerm } from './controllers/TermController';
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -47,9 +46,9 @@ app.post('/api/users/:targetUserID/email', updateUserEmail);
 
 app.get('/api/classes', getAllClasses);
 
-app.get('api/terms', getTermsByUserID);
-app.get('/terms/:termID', getTerm);
-app.post('/api/terms', insertTerm);
+// app.get('api/terms', getTermsByUserID); // Fix me
+// app.get('/terms/:termID', getTerm); // Fix me
+app.post('/api/terms/', addNewTerm);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

@@ -10,6 +10,7 @@ async function allCounterData(): Promise<Counter[]> {
   return counterRepository.find();
 }
 
+// Add a new counter
 async function addCounter(
   quizzes: Quiz[],
   users: User,

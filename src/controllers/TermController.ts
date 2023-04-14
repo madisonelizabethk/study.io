@@ -2,29 +2,32 @@ import { Request, Response } from 'express';
 import { getTermsByUserID, insertTerm } from '../models/TermModel';
 import { getUserById } from '../models/UserModel';
 
+// Create a new term from the user
 async function addNewTerm(req: Request, res: Response): Promise<void> {
   const { isLoggedIn, authenticatedUser } = req.session;
+  // Check to see if user is logged in
   if (!isLoggedIn) {
     res.sendStatus(401);
-    res.redirect('/login');
+    res.redirect('/login'); // If not logged in, redirect to login page
     return;
   }
+  // Check to see what user is logging in
   const { userID } = authenticatedUser;
   const user = await getUserById(userID);
   if (!user) {
-    res.redirect('/login');
+    res.redirect('/login'); // If user does not exist, redirect to login page
     return;
   }
 
   const { question, answer } = req.body as NewTermRequest;
 
-  // Attempt to add the term
   const term = await insertTerm(question, user, answer);
   console.log(term);
 
-  res.sendStatus(201).json(term);
+  res.status(201).json(term);
 }
 
+// Grab terns from the database
 async function getTerm(req: Request, res: Response): Promise<void> {
   const { termID } = req.params as { termID: string };
 

@@ -6,6 +6,7 @@ async function getAllClasses(req: Request, res: Response): Promise<void> {
   res.json(await allClassData());
 }
 
+// Create New Class Information for the student
 async function createClassInfo(req: Request, res: Response): Promise<void> {
   const { isLoggedIn, authenticatedUser } = req.session;
   if (!isLoggedIn) {
@@ -37,6 +38,7 @@ async function createClassInfo(req: Request, res: Response): Promise<void> {
   res.status(201).json(classInfo);
 }
 
+// Get Class Info from the database
 async function getClassInfo(req: Request, res: Response): Promise<void> {
   const { classID } = req.params as { classID: string };
 
