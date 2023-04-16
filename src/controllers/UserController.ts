@@ -14,13 +14,21 @@ async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
 }
 
 async function registerUser(req: Request, res: Response): Promise<void> {
-  const { email, password } = req.body as AuthRequest;
+  const { username, firstName, lastName, classification, email, password } =
+    req.body as NewUserRequest;
 
   // IMPORTANT: Hash the password
   const passwordHash = await argon2.hash(password);
 
   try {
-    const newUser = await addUser(email, passwordHash);
+    const newUser = await addUser(
+      username,
+      firstName,
+      lastName,
+      classification,
+      email,
+      passwordHash
+    );
     console.log(newUser);
     res.sendStatus(201);
   } catch (err) {
@@ -73,7 +81,6 @@ async function getUserProfileData(req: Request, res: Response): Promise<void> {
     res.sendStatus(404); // Not found
     return;
   }
-  // Update profile views
 
   res.json(user); // Send back user data
 }

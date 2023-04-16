@@ -44,11 +44,16 @@ app.get('/api/users', getAllUserProfiles);
 app.get('/api/users/:targetUserID', getUserProfileData);
 app.post('/api/users/:targetUserID/email', updateUserEmail);
 
-app.get('/api/classes', getAllClasses);
+// ClassInfo Endpoints
+app.get('/api/classes', getAllClasses); // Fix me
 
+// Term Endpoints
 // app.get('api/terms', getTermsByUserID); // Fix me
 // app.get('/terms/:termID', getTerm); // Fix me
 app.post('/api/terms/', addNewTerm);
+
+// Quiz Endpoints
+// app.post('/api/terms/:termID/quizzes', makeQuiz); // Fix me
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

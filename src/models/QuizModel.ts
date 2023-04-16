@@ -12,7 +12,7 @@ async function allQuizData(): Promise<Quiz[]> {
 }
 
 // Function: Add a quiz
-async function addQuiz(
+async function insertQuiz(
   users: User[],
   terms: Term[],
   scores: Counter[],
@@ -59,4 +59,4 @@ async function quizAssignedToUser(quizID: string, userID: string): Promise<boole
 
   return quizExists;
 }
-export { allQuizData, addQuiz, getQuizById, getQuizzesByUserId, quizAssignedToUser };
+export { allQuizData, insertQuiz, getQuizById, getQuizzesByUserId, quizAssignedToUser };
