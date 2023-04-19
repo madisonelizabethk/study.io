@@ -13,6 +13,7 @@ import {
 } from './controllers/UserController';
 import { getAllClasses } from './controllers/ClassController';
 import { addNewTerm } from './controllers/TermController';
+import { validateNewUserBody, validateLoginBody } from '../validators/authValidator';
 
 const app: Express = express();
 app.set('view engine', 'ejs');
