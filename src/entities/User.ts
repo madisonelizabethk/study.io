@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  Relation,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Counter } from './Counter';
 import { Term } from './Term';
 import { Quiz } from './Quiz';
@@ -23,6 +31,7 @@ export class User {
 
   // Many to Many Relationship with Term
   @ManyToMany(() => Term, (terms) => terms.users, { cascade: ['insert', 'update'] })
+  @JoinTable()
   terms: Relation<Term>[];
 
   @Column() // No relationship
