@@ -16,4 +16,6 @@ export class Notification {
 
   @Column()
   class: string;
+
+  
 }
