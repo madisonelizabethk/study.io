@@ -17,5 +17,7 @@ export class AssignmentSchedule {
   @Column()
   dueDate: Date;
 
+  @Column()
+  dueDateTime: Date;
   
 }
