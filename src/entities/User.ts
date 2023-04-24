@@ -1,14 +1,5 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  Relation,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation, ManyToMany } from 'typeorm';
 import { Counter } from './Counter';
-import { Term } from './Term';
 import { Quiz } from './Quiz';
 import { ClassInfo } from './ClassInfo';
 import { Reminder } from './Reminder';
@@ -30,6 +21,7 @@ export class User {
   @OneToMany(() => Counter, (counter) => counter.users, { cascade: ['insert', 'update'] })
   counters: Relation<Counter>[];
 
+<<<<<<< HEAD
   // Many to Many Relationship with Term
   @ManyToMany(() => Term, (terms) => terms.users, { cascade: ['insert', 'update'] })
   @JoinTable()
@@ -39,6 +31,8 @@ export class User {
   @OneToMany(() => Reminder, (reminder) => reminder.user, { cascade: ['insert', 'update'] })
   reminders: Relation<Reminder>[];
 
+=======
+>>>>>>> fe6b90c (quiz stuff, term and user)
   @Column() // No relationship
   username: string;
 

@@ -20,11 +20,10 @@ async function getTermsByUserID(userID: string): Promise<Term[]> {
   return terms;
 }
 
-async function insertTerm(question: string, user: User, answer: string): Promise<Term> {
+async function insertTerm(question: string, answer: string): Promise<Term> {
   let newTerm = new Term();
   newTerm.question = question;
   newTerm.quizzes = [];
-  newTerm.users = [user];
   newTerm.answer = answer;
 
   newTerm = await termRepository.save(newTerm);

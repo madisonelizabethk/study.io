@@ -1,6 +1,32 @@
-// import { Request, Response } from 'express';
-// import { getCoursesByClassID } from '../models/ClassModel';
-// import { getUserbyId } from '../models/UserModel';
+import { Request, Response } from 'express';
+import { getUserById } from '../models/UserModel';
+import { insertQuiz } from '../models/QuizModel';
+
+// Function: Add a new quiz
+async function addQuiz(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn, authenticatedUser } = req.session;
+  // Check to see if a user is logged in
+  if (!isLoggedIn) {
+    res.sendStatus(404);
+    res.redirect('/login'); // If not logged in, redirect to login page
+    return;
+  }
+
+  // Check to see what user is logging in
+  const { userID } = authenticatedUser;
+  const user = await getUserById(userID);
+  if (!user) {
+    res.redirect('/login'); // If user does not exist, redirect to login page
+    return;
+  }
+
+  const { scores, setName } = req.body as NewQuizRequest;
+
+  const quiz = await insertQuiz(scores, user, setName);
+  console.log(quiz);
+
+  res.status(201).json(quiz);
+}
 
 // async function getQuiz(req: Request, res: Response): Promise<void> {
 //   const { quizID } = req.params as { quizID: string };
@@ -15,22 +41,4 @@
 //   res.status(200).json(quiz);
 // }
 
-// async function createQuiz(req: Request, res: Response): Promise<void> {
-//   const { termID } = req.params as { termID: string };
-//   const { authenticatedUser, isLoggedIn } = req.session;
-//   if (!isLoggedIn) {
-//     res.sendStatus(401);
-//     return;
-//   }
-
-//   const class = await getCoursesByClassID(classID);
-//   const user = await getUserbyId(authenticatedUser.userID);
-
-//   if (!class || !user) {
-//     res.sendStatus(404);
-//     return;
-//   }
-
-// }
-
-// export { getQuiz };
+export { addQuiz };

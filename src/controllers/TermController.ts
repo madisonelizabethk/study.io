@@ -11,6 +11,7 @@ async function addNewTerm(req: Request, res: Response): Promise<void> {
     res.redirect('/login'); // If not logged in, redirect to login page
     return;
   }
+
   // Check to see what user is logging in
   const { userID } = authenticatedUser;
   const user = await getUserById(userID);
@@ -21,7 +22,7 @@ async function addNewTerm(req: Request, res: Response): Promise<void> {
 
   const { question, answer } = req.body as NewTermRequest;
 
-  const term = await insertTerm(question, user, answer);
+  const term = await insertTerm(question, answer);
   console.log(term);
 
   res.status(201).json(term);
