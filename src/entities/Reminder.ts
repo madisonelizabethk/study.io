@@ -9,9 +9,6 @@ export class Reminder {
   @Column()
   sendNotificationOn: Date;
 
-  @Column('simple-array')
-  items: string[];
-
   @ManyToOne(() => User, (user) => user.reminders, { cascade: ['insert', 'update'] })
   user: Relation<User>;
 }

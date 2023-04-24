@@ -9,10 +9,7 @@ export class Notification {
   assignmentName: string;
 
   @Column()
-  dueTime: number;
-
-  @Column()
-  dueDate: string;
+  dueDate: Date;
 
   @Column()
   class: string;
