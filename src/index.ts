@@ -11,7 +11,7 @@ import {
   getAllUserProfiles,
   updateUserEmail,
 } from './controllers/UserController';
-import { getAllClasses } from './controllers/ClassController';
+import { createClassInfo } from './controllers/ClassController';
 import { addNewTerm } from './controllers/TermController';
 
 const app: Express = express();
@@ -45,7 +45,7 @@ app.get('/api/users/:targetUserID', getUserProfileData);
 app.post('/api/users/:targetUserID/email', updateUserEmail);
 
 // ClassInfo Endpoints
-app.get('/api/classes', getAllClasses); // Fix me
+app.post('/api/classes', createClassInfo); // Fix me
 
 // Term Endpoints
 // app.get('api/terms', getTermsByUserID); // Fix me

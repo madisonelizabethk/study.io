@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Relation } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Relation, JoinTable } from 'typeorm';
 import { User } from './User';
 
 @Entity()
@@ -8,6 +8,7 @@ export class ClassInfo {
 
   // Many to Many Relationship with User
   @ManyToMany(() => User, (users) => users.info, { cascade: ['insert', 'update'] })
+  @JoinTable()
   users: Relation<User>[];
 
   @Column()

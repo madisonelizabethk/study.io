@@ -9,6 +9,17 @@ async function allClassData(): Promise<ClassInfo[]> {
   return classRepository.find();
 }
 
+// Function: Get courses by UserID that already exist in database
+async function getCoursesByUserID(userID: string): Promise<ClassInfo[]> {
+  const classinfo = await classRepository
+    .createQueryBuilder('classinfo')
+    .leftJoinAndSelect('classinfo.users', 'users')
+    .where('users.userID = :userID', { userID })
+    .getMany();
+
+  return classinfo;
+}
+
 // Function: Get courses by professor email
 // Pass email as a parameter, return array of courses
 async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
@@ -58,4 +69,5 @@ export {
   addClassInfo,
   allClassData,
   getCoursesByClassName,
+  getCoursesByUserID,
 };
