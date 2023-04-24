@@ -11,6 +11,7 @@ import { Counter } from './Counter';
 import { Term } from './Term';
 import { Quiz } from './Quiz';
 import { ClassInfo } from './ClassInfo';
+import { Reminder } from './Reminder';
 
 @Entity()
 export class User {
@@ -33,6 +34,10 @@ export class User {
   @ManyToMany(() => Term, (terms) => terms.users, { cascade: ['insert', 'update'] })
   @JoinTable()
   terms: Relation<Term>[];
+
+  // One to Many Relationship with Reminder
+  @OneToMany(() => Reminder, (reminder) => reminder.user, { cascade: ['insert', 'update'] })
+  reminders: Relation<Reminder>[];
 
   @Column() // No relationship
   username: string;
