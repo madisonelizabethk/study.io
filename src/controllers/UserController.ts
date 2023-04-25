@@ -9,6 +9,7 @@ import {
 } from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 import { sendEmail } from '../services/emailService';
+import { addReminder } from '../models/ReminderModel';
 
 async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
   res.json(await allUserData());
@@ -43,6 +44,9 @@ async function registerUser(req: Request, res: Response): Promise<void> {
 
 async function logIn(req: Request, res: Response): Promise<void> {
   console.log(req.session);
+
+  // Notes: We need to convert the date string back into a Date() object
+  // 'parseISO()' does the conversion
 
   const { email, password } = req.body as AuthRequest;
 
@@ -122,4 +126,27 @@ async function updateUserEmail(req: Request, res: Response): Promise<void> {
   res.sendStatus(200);
 }
 
-export { registerUser, logIn, getUserProfileData, getAllUserProfiles, updateUserEmail };
+// Controller for Reminder
+async function createReminder(req: Request, res: Response): Promise<void> {
+  if (!req.session.isLoggedIn) {
+    res.sendStatus(401); // 401 Unauthorized
+    return;
+  }
+
+  const { authenticatedUser } = req.session;
+  const user = await getUserById(authenticatedUser.userID);
+
+  const { sendNotificationOn } = req.body as CreateReminderBody;
+  const reminder = await addReminder(sendNotificationOn, user);
+
+  res.sendStatus(201);
+}
+
+export {
+  registerUser,
+  logIn,
+  getUserProfileData,
+  getAllUserProfiles,
+  updateUserEmail,
+  createReminder,
+};
