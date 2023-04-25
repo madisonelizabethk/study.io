@@ -14,6 +14,7 @@ import {
 import { createClassInfo } from './controllers/ClassController';
 import { addNewTerm, renderTerms } from './controllers/TermController';
 import { addQuiz } from './controllers/QuizController';
+import { addNewAssignment } from './controllers/AssignmentController';
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -59,6 +60,9 @@ app.post('/api/quizzes', addQuiz); // Fix me
 
 // Reminder Endpoint
 // app.post('/api/reminders', sendEmail);
+
+// Assignment Endpoint
+app.post('/api/assignment', addNewAssignment);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

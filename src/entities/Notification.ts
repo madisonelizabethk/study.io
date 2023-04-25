@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, Relation, JoinColumn } from 'typeorm';
+import { Assignment } from './Assignment';
 
 @Entity()
 export class Notification {
@@ -18,4 +19,10 @@ export class Notification {
 
   // @ManyToOne(() => User, (user) => user.reminders, { cascade: ['insert', 'update'] })
   // user: Relation<User>;
+
+  @OneToOne(() => Assignment, (assignment) => assignment.notification, {
+    cascade: ['insert', 'update'],
+  })
+  @JoinColumn()
+  assignment: Relation<Assignment>;
 }

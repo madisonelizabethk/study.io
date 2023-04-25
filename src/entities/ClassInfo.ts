@@ -1,5 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Relation, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  Relation,
+  JoinTable,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 import { User } from './User';
+import { Assignment } from './Assignment';
 
 @Entity()
 export class ClassInfo {
@@ -28,4 +38,9 @@ export class ClassInfo {
 
   @Column({ nullable: true })
   officeHours: string;
+
+  @OneToMany(() => Assignment, (assignment) => assignment.classInfo, {
+    cascade: ['insert', 'update'],
+  })
+  assignments: Relation<Assignment>[];
 }

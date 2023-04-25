@@ -1,43 +1,42 @@
-// import { AppDataSource } from '../dataSource';
-// import { Assignment } from '../entities/Assignment';
-// import { User } from '../entities/User';
+import { AppDataSource } from '../dataSource';
+import { Assignment } from '../entities/Assignment';
 
-// const AssignmentRepository = AppDataSource.getRepository(Assignment);
+const assignmentRepository = AppDataSource.getRepository(Assignment);
 
-// // Function: All Assignment Data
-// async function allAssignmentData(): Promise<Assignment[]> {
-//   return assignmentRepository.find();
-// }
+// Function: All Assignment Data
+async function allAssignmentData(): Promise<Assignment[]> {
+  return assignmentRepository.find();
+}
 
-// // Function: Get assignments from database by userID
-// async function getAssignmentsByUserID(userID: string): Promise<Term[]> {
-//   const assignments = await assignmentRepository
-//     .createQueryBuilder('assignments')
-//     .leftJoinAndSelect('assignments.users', 'users')
-//     .where('users.userID = :userID', { userID })
-//     .getMany();
+// Function: Get assignments from database by userID
+async function getAssignmentsByUserID(userID: string): Promise<Assignment[]> {
+  const assignments = await assignmentRepository
+    .createQueryBuilder('assignments')
+    .leftJoinAndSelect('assignments.users', 'users')
+    .where('users.userID = :userID', { userID })
+    .getMany();
 
-//   return assignments;
-// }
+  return assignments;
+}
 
-// async function insertAssignment(
-//   assignmentName: string,
-//   assignmentType: string,
-//   className: string,
-//   dueDate: Date,
-//   dueTime: Date
-// ): Promise<Assignment> {
-//   let newAssignment = new Assignment();
-//   // newAssignment.quizzes = [];
-//   newAssignment.assignmentName = assignmentName;
-//   newAssignment.assignmentType = assignmentType;
-//   newAssignment.className = className;
-//   newAssignment.dueDate = dueDate;
-//   newAssignment.dueTime = dueTime;
+async function insertAssignment(
+  assignmentName: string,
+  assignmentType: string,
+  className: string,
+  dueDate: Date,
+  dueTime: Date
+): Promise<Assignment> {
+  let newAssignment = new Assignment();
+  // newAssignment.quizzes = [];
+  newAssignment.assignmentName = assignmentName;
+  newAssignment.assignmentType = assignmentType;
+  newAssignment.className = className;
+  newAssignment.dueDate = dueDate;
+  newAssignment.dueTime = dueTime;
 
-//   newAssignment = await assignmentRepository.save(newAssignment);
+  newAssignment = await assignmentRepository.save(newAssignment);
 
-//   return newAssignment;
-// }
+  return newAssignment;
+}
 
-// export { allAssignmentData, getAssignmentsByUserID, insertAssignment };
+export { allAssignmentData, getAssignmentsByUserID, insertAssignment };

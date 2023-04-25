@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, Relation } from 'typeorm';
+import { ClassInfo } from './ClassInfo';
 
 @Entity()
 export class Assignment {
@@ -21,4 +22,13 @@ export class Assignment {
   dueTime: Date;
 
   // Relations
+  @OneToOne(() => Notification, (notification) => notification.assignment, {
+    cascade: ['insert', 'update'],
+  })
+  notification: Relation<Notification>;
+
+  @ManyToOne(() => ClassInfo, (classInfo) => classInfo.assignments, {
+    cascade: ['insert', 'update'],
+  })
+  classInfo: Relation<ClassInfo>;
 }
