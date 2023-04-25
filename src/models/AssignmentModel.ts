@@ -23,8 +23,7 @@ async function insertAssignment(
   assignmentName: string,
   assignmentType: string,
   className: string,
-  dueDate: Date,
-  dueTime: Date
+  dueDate: Date
 ): Promise<Assignment> {
   let newAssignment = new Assignment();
   // newAssignment.quizzes = [];
@@ -32,7 +31,6 @@ async function insertAssignment(
   newAssignment.assignmentType = assignmentType;
   newAssignment.className = className;
   newAssignment.dueDate = dueDate;
-  newAssignment.dueTime = dueTime;
 
   newAssignment = await assignmentRepository.save(newAssignment);
 
