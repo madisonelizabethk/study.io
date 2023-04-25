@@ -16,10 +16,7 @@ export class Assignment {
   className: string;
 
   @Column()
-  dueDate: Date;
-
-  @Column()
-  dueTime: Date;
+  dueDate: string;
 
   // Relations
   @OneToOne(() => Notification, (notification) => notification.assignment, {
