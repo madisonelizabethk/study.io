@@ -12,8 +12,8 @@ import {
   updateUserEmail,
 } from './controllers/UserController';
 import { createClassInfo } from './controllers/ClassController';
-import { addNewTerm } from './controllers/TermController';
-import { sendEmail } from './services/emailService';
+import { addNewTerm, renderTerms } from './controllers/TermController';
+// import { sendEmail } from './services/emailService';
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -51,13 +51,14 @@ app.post('/api/classes', createClassInfo); // Fix me
 // Term Endpoints
 // app.get('api/terms', getTermsByUserID); // Fix me
 // app.get('/terms/:termID', getTerm); // Fix me
-app.post('/api/terms/', addNewTerm);
+app.post('/api/terms', addNewTerm);
+app.get('/terms', renderTerms); // View Existing Terms
 
 // Quiz Endpoints
 // app.post('/api/terms/:termID/quizzes', makeQuiz); // Fix me
 
 // Reminder Endpoint
-app.post('/api/reminders', sendEmail);
+// app.post('/api/reminders', sendEmail);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

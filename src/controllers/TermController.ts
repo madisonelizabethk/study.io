@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getTermsByUserID, insertTerm } from '../models/TermModel';
+import { getTermsByUserID, allTermData, insertTerm } from '../models/TermModel';
 import { getUserById } from '../models/UserModel';
 
 // Create a new term from the user
@@ -25,7 +25,8 @@ async function addNewTerm(req: Request, res: Response): Promise<void> {
   const term = await insertTerm(question, answer);
   console.log(term);
 
-  res.status(201).json(term);
+  // res.status(201).json(term);
+  res.redirect('/terms');
 }
 
 // Grab terns from the database
@@ -44,7 +45,13 @@ async function getTerm(req: Request, res: Response): Promise<void> {
   res.status(200).json(term);
 }
 
-async function getAllTerms(req: Request, res: Response, userID: string): Promise<void> {
-  res.status(200).json(await getTermsByUserID(userID));
+async function renderTerms(req: Request, res: Response): Promise<void> {
+  const terms = await allTermData();
+
+  // Don't send back raw json data
+  // res.status(200).json(terms);
+
+  // Render a beautiful page
+  res.render('termsPage', { terms });
 }
-export { addNewTerm, getTerm, getAllTerms };
+export { addNewTerm, getTerm, renderTerms };

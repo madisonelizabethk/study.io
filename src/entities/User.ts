@@ -21,18 +21,10 @@ export class User {
   @OneToMany(() => Counter, (counter) => counter.users, { cascade: ['insert', 'update'] })
   counters: Relation<Counter>[];
 
-<<<<<<< HEAD
-  // Many to Many Relationship with Term
-  @ManyToMany(() => Term, (terms) => terms.users, { cascade: ['insert', 'update'] })
-  @JoinTable()
-  terms: Relation<Term>[];
-
   // One to Many Relationship with Reminder
   @OneToMany(() => Reminder, (reminder) => reminder.user, { cascade: ['insert', 'update'] })
   reminders: Relation<Reminder>[];
 
-=======
->>>>>>> fe6b90c (quiz stuff, term and user)
   @Column() // No relationship
   username: string;
 

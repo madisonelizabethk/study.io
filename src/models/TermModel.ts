@@ -1,6 +1,6 @@
 import { AppDataSource } from '../dataSource';
 import { Term } from '../entities/Term';
-import { User } from '../entities/User';
+// import { User } from '../entities/User';
 
 const termRepository = AppDataSource.getRepository(Term);
 
