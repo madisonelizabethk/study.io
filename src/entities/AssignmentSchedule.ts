@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class AssignmentSchedule {
+export class Assignment {
   @PrimaryGeneratedColumn('uuid')
   assignmentId: string;
 
@@ -19,5 +19,4 @@ export class AssignmentSchedule {
 
   @Column()
   dueDateTime: Date;
-  
 }
