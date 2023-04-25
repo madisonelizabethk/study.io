@@ -1,8 +1,6 @@
 import { AppDataSource } from '../dataSource';
 import { Quiz } from '../entities/Quiz';
-import { User } from '../entities/User';
 import { Term } from '../entities/Term';
-import { Counter } from '../entities/Counter';
 
 const quizRepository = AppDataSource.getRepository(Quiz);
 
