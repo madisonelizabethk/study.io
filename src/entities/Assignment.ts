@@ -18,5 +18,7 @@ export class Assignment {
   dueDate: Date;
 
   @Column()
-  dueDateTime: Date;
+  dueTime: Date;
+
+  // Relations
 }

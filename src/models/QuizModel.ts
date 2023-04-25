@@ -12,16 +12,9 @@ async function allQuizData(): Promise<Quiz[]> {
 }
 
 // Function: Add a quiz
-async function insertQuiz(
-  users: User[],
-  terms: Term[],
-  scores: Counter[],
-  setName: string
-): Promise<Quiz> {
+async function insertQuiz(terms: Term[], setName: string): Promise<Quiz> {
   let newQuiz = new Quiz();
-  newQuiz.users = users;
   newQuiz.terms = terms;
-  newQuiz.scores = scores;
   newQuiz.setName = setName;
 
   newQuiz = await quizRepository.save(newQuiz);

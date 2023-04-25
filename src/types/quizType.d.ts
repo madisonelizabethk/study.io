@@ -1,4 +1,4 @@
 type NewQuizRequest = {
-  // scores: Counter[];
   setName: string;
+  termIDs: string[];
 };

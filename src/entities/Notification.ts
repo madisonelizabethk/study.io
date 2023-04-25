@@ -13,4 +13,9 @@ export class Notification {
 
   @Column()
   class: string;
+
+  // @ManyToOne(() )
+
+  // @ManyToOne(() => User, (user) => user.reminders, { cascade: ['insert', 'update'] })
+  // user: Relation<User>;
 }

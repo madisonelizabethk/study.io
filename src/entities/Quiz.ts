@@ -17,6 +17,9 @@ export class Quiz {
   @PrimaryGeneratedColumn('uuid')
   quizId: string;
 
+  @Column()
+  setName: string;
+
   // Many to Many Relationship with User
   @ManyToMany(() => User, (users) => users.quizzes, { cascade: ['insert', 'update'] })
   users: Relation<User>[];
@@ -29,7 +32,4 @@ export class Quiz {
   // One to Many Relationship with Counter
   @OneToMany(() => Counter, (counter) => counter.quizzes, { cascade: ['insert', 'update'] })
   scores: Relation<Counter>[];
-
-  @Column()
-  setName: string;
 }

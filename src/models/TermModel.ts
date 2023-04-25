@@ -31,4 +31,10 @@ async function insertTerm(question: string, answer: string): Promise<Term> {
   return newTerm;
 }
 
-export { allTermData, getTermsByUserID, insertTerm };
+async function getTermByTermID(termId: string): Promise<Term | null> {
+  const term = await termRepository.findOne({ where: { termId } });
+
+  return term;
+}
+
+export { allTermData, getTermsByUserID, insertTerm, getTermByTermID };
