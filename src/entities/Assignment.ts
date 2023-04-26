@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, Relation } from 'typeorm';
 import { ClassInfo } from './ClassInfo';
+import { Notification } from './Notification';
 
 @Entity()
 export class Assignment {

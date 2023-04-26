@@ -23,6 +23,5 @@ export class Notification {
   @OneToOne(() => Assignment, (assignment) => assignment.notification, {
     cascade: ['insert', 'update'],
   })
-  @JoinColumn()
   assignment: Relation<Assignment>;
 }
