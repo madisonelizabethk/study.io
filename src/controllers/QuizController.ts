@@ -21,7 +21,13 @@ async function addQuiz(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const { terms, setName } = req.body as NewQuizRequest;
+  const { setName, termIDs } = req.body as NewQuizRequest;
+
+  const terms = [];
+  for (const termId of termIDs) {
+    const term = await getTermByTermID(termId);
+    terms.push(term);
+  }
 
   const quiz = await insertQuiz(terms, setName);
   console.log(quiz);

@@ -10,7 +10,7 @@ async function allQuizData(): Promise<Quiz[]> {
 }
 
 // Function: Add a quiz
-async function insertQuiz(terms: Term[], scores: Counter[], setName: string): Promise<Quiz> {
+async function insertQuiz(terms: Term[], setName: string): Promise<Quiz> {
   let newQuiz = new Quiz();
   newQuiz.terms = terms;
   newQuiz.setName = setName;
