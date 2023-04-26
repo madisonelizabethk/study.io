@@ -9,7 +9,7 @@ import {
 } from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 import { sendEmail } from '../services/emailService';
-import { addReminder } from '../models/ReminderModel';
+// import { addReminder } from '../models/ReminderModel';
 
 async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
   res.json(await allUserData());

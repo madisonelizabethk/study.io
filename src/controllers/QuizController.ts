@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getUserById } from '../models/UserModel';
-import { insertQuiz } from '../models/QuizModel';
+import { allQuizData, getQuizzesByUserId, insertQuiz } from '../models/QuizModel';
 import { getTermByTermID } from '../models/TermModel';
 
 // Function: Add a new quiz
@@ -35,17 +35,25 @@ async function addQuiz(req: Request, res: Response): Promise<void> {
   res.status(201).json(quiz);
 }
 
-// async function getQuiz(req: Request, res: Response): Promise<void> {
-//   const { quizID } = req.params as { quizID: string };
+// Grab quizzes from the database
+async function getQuiz(req: Request, res: Response): Promise<void> {
+  const { quizID } = req.params as { quizID: string };
 
-//   const quiz = await getCoursesByClassID(quizID);
+  const quiz = await getQuizzesByUserId(quizID);
 
-//   if (!quiz) {
-//     res.sendStatus(404);
-//     return;
-//   }
+  if (!quiz) {
+    res.sendStatus(404); // Not found
+    return;
+  }
 
-//   res.status(200).json(quiz);
-// }
+  res.status(200).json(quiz);
+}
 
-export { addQuiz };
+// Quiz Page
+async function renderQuizzes(req: Request, res: Response): Promise<void> {
+  const quizzes = await allQuizData();
+
+  res.render('quizPage', { quizzes });
+}
+
+export { addQuiz, getQuiz, renderQuizzes };

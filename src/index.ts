@@ -13,7 +13,7 @@ import {
 } from './controllers/UserController';
 import { createClassInfo } from './controllers/ClassController';
 import { addNewTerm, renderTerms } from './controllers/TermController';
-import { addQuiz } from './controllers/QuizController';
+import { addQuiz, renderQuizzes } from './controllers/QuizController';
 import { addNewAssignment } from './controllers/AssignmentController';
 
 const app: Express = express();
@@ -57,6 +57,7 @@ app.get('/terms', renderTerms); // View Existing Terms
 
 // Quiz Endpoints
 app.post('/api/quizzes', addQuiz); // Fix me
+app.get('/quizzes', renderQuizzes); // View Created Quizzes
 
 // Reminder Endpoint
 // app.post('/api/reminders', sendEmail);
