@@ -52,7 +52,14 @@ async function getClassInfo(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  res.render('classPage', { classInfo });
+  res.status(200).json(classInfo);
 }
 
-export { getAllClasses, createClassInfo, getClassInfo };
+// Classes Page
+async function renderClasses(req: Request, res: Response): Promise<void> {
+  const classes = await allClassData();
+
+  res.render('classPage', { classes });
+}
+
+export { getAllClasses, createClassInfo, getClassInfo, renderClasses };
