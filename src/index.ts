@@ -60,8 +60,8 @@ app.get('/terms', renderTerms); // View Existing Terms
 app.post('/api/quizzes', addQuiz); // Add quiz
 app.get('/quizzes', renderQuizzes); // View Created Quizzes
 
-// Reminder Endpoint
-// app.post('/api/reminders', sendEmail);
+// Notification Endpoint
+// app.post('/api/notifications', sendEmail);
 
 // Assignment Endpoint
 app.post('/api/assignment', addNewAssignment);
