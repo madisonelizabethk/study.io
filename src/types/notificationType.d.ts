@@ -1,4 +1,4 @@
-type CreateReminderBody = {
+type CreateNotificationBody = {
   sendNotificationOn: string;
   items: string[];
 };

@@ -15,9 +15,12 @@ export class Notification {
   @Column()
   class: string;
 
+  @Column()
+  sendNotificationOn: Date;
+
   // @ManyToOne(() )
 
-  // @ManyToOne(() => User, (user) => user.reminders, { cascade: ['insert', 'update'] })
+  // @ManyToOne(() => User, (user) => user.notifications, { cascade: ['insert', 'update'] })
   // user: Relation<User>;
 
   @OneToOne(() => Assignment, (assignment) => assignment.notification, {
