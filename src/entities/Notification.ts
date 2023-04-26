@@ -9,6 +9,9 @@ export class Notification {
   @Column()
   assignmentName: string;
 
+  @Column({ unique: true })
+  user: string;
+
   @Column()
   dueDate: Date;
 
