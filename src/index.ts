@@ -11,9 +11,9 @@ import {
   getAllUserProfiles,
   updateUserEmail,
 } from './controllers/UserController';
-import { createClassInfo } from './controllers/ClassController';
+import { createClassInfo, renderClasses } from './controllers/ClassController';
 import { addNewTerm, renderTerms } from './controllers/TermController';
-import { addQuiz } from './controllers/QuizController';
+import { addQuiz, renderQuizzes } from './controllers/QuizController';
 import { addNewAssignment } from './controllers/AssignmentController';
 
 const app: Express = express();
@@ -48,6 +48,7 @@ app.post('/api/users/:targetUserID/email', updateUserEmail);
 
 // ClassInfo Endpoints
 app.post('/api/classes', createClassInfo); // Fix me
+app.get('/classes', renderClasses); // View Created Classes
 
 // Term Endpoints
 // app.get('api/terms', getTermsByUserID); // Fix me
@@ -56,7 +57,8 @@ app.post('/api/terms', addNewTerm);
 app.get('/terms', renderTerms); // View Existing Terms
 
 // Quiz Endpoints
-app.post('/api/quizzes', addQuiz); // Fix me
+app.post('/api/quizzes', addQuiz); // Add quiz
+app.get('/quizzes', renderQuizzes); // View Created Quizzes
 
 // Reminder Endpoint
 // app.post('/api/reminders', sendEmail);

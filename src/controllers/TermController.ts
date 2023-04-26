@@ -29,7 +29,7 @@ async function addNewTerm(req: Request, res: Response): Promise<void> {
   res.redirect('/terms');
 }
 
-// Grab terns from the database
+// Grab terms from the database
 async function getTerm(req: Request, res: Response): Promise<void> {
   const { termID } = req.params as { termID: string };
 
@@ -45,6 +45,7 @@ async function getTerm(req: Request, res: Response): Promise<void> {
   res.status(200).json(term);
 }
 
+// Term page
 async function renderTerms(req: Request, res: Response): Promise<void> {
   const terms = await allTermData();
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial=scale=1.0">
+    <title> All Class Information | Study.io</title>
+    <style>
+      .quiz {
+        background-color: aquamarine
+      }
+    </style>
+  </head>
+  <body>
+    <% for (const classInfo of classes) { %>
+
+      <div class="class">
+        <p class="className"><%= classInfo.className %></p>
+
+        <p class="classTimes"><%= classInfo.classTimes %></p>
+
+        <p class="classTextbook"><%= classInfo.classTextbook %></p>
+
+        <p class="courseDescription"><% classInfo.courseDescription %></p>
+
+        <p class="professorEmail"><% classInfo.professorEmail %></p>
+
+        <p class="officeHours"><% classInfo.officeHours %></p>
+
+      </div>
+      <% } %>
+  </body>
+</html>

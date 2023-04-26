@@ -9,15 +9,18 @@ async function getAllClasses(req: Request, res: Response): Promise<void> {
 // Create New Class Information for the student
 async function createClassInfo(req: Request, res: Response): Promise<void> {
   const { isLoggedIn, authenticatedUser } = req.session;
+  // Check to see if a user is logged in
   if (!isLoggedIn) {
     // res.sendStatus(401)
-    res.redirect('/login');
+    res.redirect('/login'); // If not logged in, redirect to login
     return;
   }
+
+  // Check to see what user is logging in
   const { userID } = authenticatedUser;
   const user = await getUserById(userID);
   if (!user) {
-    res.redirect('/login');
+    res.redirect('/login'); // If user does not exist, redirect to login page
     return;
   }
 
@@ -49,7 +52,14 @@ async function getClassInfo(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  res.render('classPage', { classInfo });
+  res.status(200).json(classInfo);
 }
 
-export { getAllClasses, createClassInfo, getClassInfo };
+// Classes Page
+async function renderClasses(req: Request, res: Response): Promise<void> {
+  const classes = await allClassData();
+
+  res.render('classPage', { classes });
+}
+
+export { getAllClasses, createClassInfo, getClassInfo, renderClasses };
