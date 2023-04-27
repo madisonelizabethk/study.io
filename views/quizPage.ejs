@@ -14,10 +14,18 @@
           <% for(const term of terms) { %>
 
             <div class="term">
-              <option value="<%= term %>"><%= term.question %></option>
+              <option value="<%= term %>" question="<%= term.question %>"><%= term.question %></option>
             </div>
            <% } %>
         </select>
       </div>
+
+      <button id="termSelectionBtn"> Add Term to Quiz</button>
+
+      <h2> Selected Terms for the Quiz</h2>
+      <ul id="termlist">
+
+      </ul>
+
   </body>
 </html>
