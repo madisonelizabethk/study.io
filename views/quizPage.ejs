@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial=scale=1.0">
-    <title> All Quizzes | Study.io</title>
-    <style>
-      .quiz {
-        background-color: aquamarine
-      }
-    </style>
+    <title> Create a New Quiz | Study.io</title>
   </head>
   <body>
-    <% for (const quiz of quizzes) { %>
+      <div>
+        <label for="term-select"> Select Terms to add to a Quiz</label>
 
-      <div class="quiz">
-        <p class="setName"><%= quiz.setName %></p>
+        <select name="term" id="term-select">
+          <% for(const term of terms) { %>
 
+            <div class="term">
+              <option value="<%= term %>"><%= term.question %></option>
+            </div>
+           <% } %>
+        </select>
       </div>
-      <% } %>
   </body>
 </html>
