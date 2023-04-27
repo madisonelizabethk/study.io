@@ -10,7 +10,7 @@ export class Notification {
   assignmentName: string;
 
   @Column({ unique: true })
-  user: string;
+  username: string;
 
   @Column()
   dueDate: Date;
