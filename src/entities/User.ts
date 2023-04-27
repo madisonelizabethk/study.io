@@ -10,7 +10,7 @@ import {
 import { Counter } from './Counter';
 import { Quiz } from './Quiz';
 import { ClassInfo } from './ClassInfo';
-// import { Reminder } from './Reminder';
+import { Notification } from './Notification';
 
 @Entity()
 export class User {
@@ -30,9 +30,11 @@ export class User {
   @OneToMany(() => Counter, (counter) => counter.users, { cascade: ['insert', 'update'] })
   counters: Relation<Counter>[];
 
-  // One to Many Relationship with Reminder
-  // @OneToMany(() => Reminder, (reminder) => reminder.user, { cascade: ['insert', 'update'] })
-  // reminders: Relation<Reminder>[];
+  // One to Many Relationship with Notification
+  @OneToMany(() => Notification, (notification) => notification.username, {
+    cascade: ['insert', 'update'],
+  })
+  notifications: Relation<Notification>[];
 
   @Column() // No relationship
   username: string;
