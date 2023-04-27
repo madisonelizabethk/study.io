@@ -7,6 +7,9 @@ export class Notification {
   notificationId: string;
 
   @Column()
+  sendNotificationOn: Date;
+
+  @Column()
   assignmentName: string;
 
   @Column({ unique: true })
@@ -17,9 +20,6 @@ export class Notification {
 
   @Column()
   class: string;
-
-  @Column()
-  sendNotificationOn: Date;
 
   // @ManyToOne(() )
 

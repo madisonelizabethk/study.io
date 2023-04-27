@@ -1,3 +1,4 @@
+import { addWeeks } from 'date-fns';
 import { AppDataSource } from '../dataSource';
 import { User } from '../entities/User';
 
@@ -49,4 +50,26 @@ async function updateEmailAddress(userID: string, newEmail: string): Promise<voi
     .execute();
 }
 
-export { addUser, getUserByEmail, getUserById, allUserData, updateEmailAddress };
+async function getRemindersDueInOneWeek(): Promise<User[]> {
+  const today = new Date();
+  const oneWeekFromToday = addWeeks(today, 2);
+
+  const users = await userRepository
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.reminders', 'reminders')
+    .select(['user.userId', 'user.email', 'user.username', 'reminders'])
+    .where('reminders.sendNotificationOn <= :oneWeekFromToday', { oneWeekFromToday })
+    .andWhere('reminders.sendNotificationOn > :today', { today })
+    .getMany();
+
+  return users;
+}
+
+export {
+  addUser,
+  getUserByEmail,
+  getUserById,
+  allUserData,
+  updateEmailAddress,
+  getRemindersDueInOneWeek,
+};

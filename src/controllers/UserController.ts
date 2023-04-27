@@ -10,6 +10,7 @@ import {
 import { parseDatabaseError } from '../utils/db-utils';
 import { sendEmail } from '../services/emailService';
 // import { addNotification } from '../models/NotificationModel';
+import { addNotification } from '../models/NotificationModel';
 
 async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
   res.json(await allUserData());
@@ -33,6 +34,7 @@ async function registerUser(req: Request, res: Response): Promise<void> {
     );
     console.log(newUser);
 
+    // Send Welcome Email
     await sendEmail(email, 'Welcome!', `Thank you for joining my application!`);
     res.sendStatus(201);
   } catch (err) {
@@ -137,7 +139,7 @@ async function createNotification(req: Request, res: Response): Promise<void> {
   const user = await getUserById(authenticatedUser.userID);
 
   const { sendNotificationOn } = req.body as CreateNotificationBody;
-  const notification = await addNotification(sendNotificationOn, user);
+  const notification = await addNotification(sendNotificationOn, items, user);
 
   res.sendStatus(201);
 }

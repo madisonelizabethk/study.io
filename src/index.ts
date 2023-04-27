@@ -66,7 +66,8 @@ app.get('/addQuiz', renderQuizCreationPage); // View Created Quizzes
 app.get('/quizzes', renderQuizSelectionPage); // View Created Quizzes
 
 // Notification Endpoint
-// app.post('/api/notifications', sendEmail);
+// app.post('/api/notifications', _____);
+app.post('/api/notifications');
 
 // Assignment Endpoint
 app.post('/api/assignment', addNewAssignment);
