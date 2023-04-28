@@ -25,3 +25,5 @@ async function sendOneWeekReminders(): Promise<void> {
   const users = await getRemindersDueInOneWeek();
   await sendReminders(users);
 }
+
+export { sendOneWeekReminders };

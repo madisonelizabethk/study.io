@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
+import { scheduleJob } from 'node-schedule';
 import {
   registerUser,
   logIn,
@@ -19,6 +20,9 @@ import {
   renderQuizCreationPage,
 } from './controllers/QuizController';
 import { addNewAssignment } from './controllers/AssignmentController';
+import { sendOneWeekReminders } from './services/reminderService';
+
+scheduleJob('0 0 7 * * *', sendOneWeekReminders);
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -65,10 +69,10 @@ app.post('/api/quizzes', addQuiz); // Add quiz
 app.get('/addQuiz', renderQuizCreationPage); // View Created Quizzes
 app.get('/quizzes', renderQuizSelectionPage); // View Created Quizzes
 
-// Notification Endpoint
+// Reminder Endpoint
 // app.post('/api/notifications', _____);
-app.post('/api/notifications');
-,
+app.post('/api/reminders');
+
 // Assignment Endpoint
 app.post('/api/assignment', addNewAssignment);
 
