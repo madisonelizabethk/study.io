@@ -52,6 +52,12 @@ async function getQuiz(req: Request, res: Response): Promise<void> {
 
 // Quiz Page
 async function renderQuizCreationPage(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn } = req.session;
+  // Check to see if a user is logged in
+  if (!isLoggedIn) {
+    res.redirect('/login'); // If not logged in, redirect to login page
+    return;
+  }
   const terms = await allTermData();
 
   res.render('quizPage', { terms });
