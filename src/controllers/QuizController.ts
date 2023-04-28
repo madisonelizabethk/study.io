@@ -32,7 +32,8 @@ async function addQuiz(req: Request, res: Response): Promise<void> {
   const quiz = await insertQuiz(terms, setName);
   console.log(quiz);
 
-  res.status(201).json(quiz);
+  // res.status(201).json(quiz);
+  res.redirect('/quizzes');
 }
 
 // Grab quizzes from the database
