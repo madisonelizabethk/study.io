@@ -38,7 +38,8 @@ async function createClassInfo(req: Request, res: Response): Promise<void> {
   );
   console.log(classInfo);
 
-  res.status(201).json(classInfo);
+  // res.status(201).json(classInfo);
+  res.redirect('/successClassInfo');
 }
 
 // Get Class Info from the database

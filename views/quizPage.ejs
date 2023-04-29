@@ -5,8 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial=scale=1.0">
     <title> Create a New Quiz | Study.io</title>
+    <script src="/js/termButton.js" defer></script>
   </head>
   <body>
+
+      <div>
+        <label for="setName">Quiz Set Name: </label>
+        <input type="text" id="setName" name="setName" required>
+      </div>
       <div>
         <label for="term-select"> Select Terms to add to a Quiz</label>
 
@@ -14,12 +20,13 @@
           <% for(const term of terms) { %>
 
             <div class="term">
-              <option value="<%= term %>" question="<%= term.question %>"><%= term.question %></option>
+              <option value="<%= term.termId %>" question="<%= term.question %>"><%= term.question %></option>
             </div>
            <% } %>
         </select>
       </div>
 
+      <button id="quizSubmitBtn"> Submit New Quiz</button>
       <button id="termSelectionBtn"> Add Term to Quiz</button>
 
       <h2> Selected Terms for the Quiz</h2>

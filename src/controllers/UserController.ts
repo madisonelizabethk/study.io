@@ -37,7 +37,8 @@ async function registerUser(req: Request, res: Response): Promise<void> {
 
     // Send Welcome Email
     await sendEmail(email, 'Welcome!', `Thank you for joining my application!`);
-    res.sendStatus(201);
+    // res.sendStatus(201);
+    res.redirect('/successRegisteredUser');
   } catch (err) {
     console.error(err);
     const databaseErrorMessage = parseDatabaseError(err);
@@ -75,7 +76,9 @@ async function logIn(req: Request, res: Response): Promise<void> {
   };
   req.session.isLoggedIn = true;
 
-  res.sendStatus(200);
+  // res.sendStatus(200);
+
+  res.redirect('/successLoggedIn');
 }
 
 async function getUserProfileData(req: Request, res: Response): Promise<void> {

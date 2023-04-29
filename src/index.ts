@@ -72,7 +72,7 @@ app.get('/quizzes', renderQuizSelectionPage); // View Created Quizzes
 // Reminder Endpoint
 // app.post('/api/notifications', _____);
 app.post('/api/reminders');
-
+,
 // Assignment Endpoint
 app.post('/api/assignment', addNewAssignment);
 

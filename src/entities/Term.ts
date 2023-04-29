@@ -13,7 +13,7 @@ export class Term {
   answer: string;
 
   // Many to Many Relationship with Quiz
-  @ManyToMany(() => Quiz, (quiz) => quiz.terms, { cascade: ['insert', 'update'] })
+  @ManyToMany(() => Quiz, (quiz) => quiz.terms)
   @JoinTable()
   quizzes: Relation<Quiz>[];
 }

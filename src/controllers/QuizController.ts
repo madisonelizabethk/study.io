@@ -32,7 +32,8 @@ async function addQuiz(req: Request, res: Response): Promise<void> {
   const quiz = await insertQuiz(terms, setName);
   console.log(quiz);
 
-  res.status(201).json(quiz);
+  // res.status(201).json(quiz);
+  res.redirect('/quizzes');
 }
 
 // Grab quizzes from the database
@@ -51,6 +52,12 @@ async function getQuiz(req: Request, res: Response): Promise<void> {
 
 // Quiz Page
 async function renderQuizCreationPage(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn } = req.session;
+  // Check to see if a user is logged in
+  if (!isLoggedIn) {
+    res.redirect('/login'); // If not logged in, redirect to login page
+    return;
+  }
   const terms = await allTermData();
 
   res.render('quizPage', { terms });
