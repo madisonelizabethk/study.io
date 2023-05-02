@@ -20,13 +20,15 @@ async function insertQuiz(terms: Term[], setName: string): Promise<Quiz> {
   return newQuiz;
 }
 
-async function getQuizById(quizID: string): Promise<Quiz[]> {
-  return quizRepository
+async function getQuizById(quizId: string): Promise<Quiz | null> {
+  return await quizRepository
     .createQueryBuilder('quiz')
-    .where({ where: { quizID } })
-    .leftJoin('quiz.user', 'user')
-    .select() // Finish this
-    .getMany();
+    .leftJoin('quiz.users', 'users')
+    .leftJoin('quiz.terms', 'terms')
+    .leftJoin('quiz.scores', 'scores')
+    .where('quizId = :quizId', { quizId })
+    .select(['quiz', 'terms', 'scores', 'users.userID', 'users.username'])
+    .getOne();
 }
 
 async function getQuizzesByUserId(userID: string): Promise<Quiz[]> {

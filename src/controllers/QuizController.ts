@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getUserById } from '../models/UserModel';
-import { allQuizData, getQuizzesByUserId, insertQuiz } from '../models/QuizModel';
+import { allQuizData, getQuizzesByUserId, insertQuiz, getQuizById } from '../models/QuizModel';
 import { allTermData, getTermByTermID } from '../models/TermModel';
 
 // Function: Add a new quiz
@@ -69,4 +69,56 @@ async function renderQuizSelectionPage(req: Request, res: Response): Promise<voi
   res.render('quizSelectionPage', { quizzes });
 }
 
-export { addQuiz, getQuiz, renderQuizCreationPage, renderQuizSelectionPage };
+async function renderTakingQuizPage(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn } = req.session;
+  // Check to see if a user is logged in
+  if (!isLoggedIn) {
+    res.redirect('/login'); // If not logged in, redirect to login page
+    return;
+  }
+
+  const { quizId } = req.query as { quizId: string };
+  const quiz = await getQuizById(quizId);
+  console.log(quiz);
+
+  res.render('takeQuizPage', { quiz });
+}
+
+async function checkQuizAnswers(req: Request, res: Response): Promise<void> {
+  const { isLoggedIn } = req.session;
+  // Check to see if a user is logged in
+  if (!isLoggedIn) {
+    res.redirect('/login'); // If not logged in, redirect to login page
+    return;
+  }
+
+  // Check if the user's answer is correct
+  const { quizId } = req.params as { quizId: string };
+  const quiz = await getQuizById(quizId);
+  const { answers } = req.body as { answers: string[] };
+  let counter = 0;
+  for (let i = 0; i < quiz.terms.length; i += 1) {
+    const term = quiz.terms[i];
+    const answer = answers[i];
+
+    if (term.answer !== answer) {
+      console.log('Incorrect!');
+    } else {
+      console.log('Correct!');
+      counter += 1;
+    }
+  }
+  console.log(answers);
+  console.log(quiz);
+
+  res.render('quizResultsPage', { counter, numQuestions: quiz.terms.length });
+}
+
+export {
+  addQuiz,
+  getQuiz,
+  renderQuizCreationPage,
+  renderQuizSelectionPage,
+  renderTakingQuizPage,
+  checkQuizAnswers,
+};

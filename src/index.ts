@@ -18,6 +18,8 @@ import {
   addQuiz,
   renderQuizSelectionPage,
   renderQuizCreationPage,
+  renderTakingQuizPage,
+  checkQuizAnswers,
 } from './controllers/QuizController';
 import { addNewAssignment } from './controllers/AssignmentController';
 import { sendOneWeekReminders } from './services/reminderService';
@@ -67,7 +69,10 @@ app.get('/terms', renderTerms); // View Existing Terms
 // Quiz Endpoints
 app.post('/api/quizzes', addQuiz); // Add quiz
 app.get('/addQuiz', renderQuizCreationPage); // View Created Quizzes
-app.get('/quizzes', renderQuizSelectionPage); // View Created Quizzes
+app.get('/quizzes', renderQuizSelectionPage); // User views their quiz options
+app.get('/quizzes/takeQuiz', renderTakingQuizPage); // Get the user's quiz of choice
+app.post('/quizzes/:quizId', checkQuizAnswers); // Check User's answers
+// app.get('/results', renderQuizResults) // Show results from Quiz
 
 // Reminder Endpoint
 // app.post('/api/notifications', _____);

@@ -8,17 +8,21 @@
   </head>
   <body>
     <!-- Wrap in form, include button -->
-    <div>
-      <label for="quiz-select"> Select Your Quiz</label>
+    <form method="GET" action="/quizzes/takeQuiz">
+      <div>
+        <label for="quiz-select"> Select Your Quiz</label>
 
-      <select name="quiz" id="quiz-select">
-        <% for(const quiz of quizzes) { %>
+        <select name="quizId" id="quiz-select">
+          <% for(const quiz of quizzes) { %>
 
-          <div class="quiz">
-            <option value="<%= quiz.quizId %>"><%= quiz.setName %></option>
-          </div>
-         <% } %>
-      </select>
-    </div>
+           <div class="quiz">
+              <option value="<%= quiz.quizId %>"><%= quiz.setName %></option>
+            </div>
+          <% } %>
+        </select>
+      </div>
+
+      <button id="quizSelectionBtn"> Select This Quiz</button>
+    </form>
   </body>
 </html>

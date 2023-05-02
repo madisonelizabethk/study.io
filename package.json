@@ -6,8 +6,8 @@
     "start": "node --experimental-loader=extensionless --es-module-specifier-resolution=node --no-warnings ./dist/index.js",
     "compile": "npm run clean && npx tsc --watch",
     "clean": "rimraf ./dist/",
-    "start-dev": "nodemon --experimental-loader=extensionless --es-module-specifier-resolution=node --no-warnings ./dist/index.js",
-    "start-dev-browserSync": "nodemon --no-warnings bsync.mjs",
+    "start-dev": "nodemon --watch dist --experimental-loader=extensionless --es-module-specifier-resolution=node --no-warnings ./dist/index.js",
+    "start-dev-browserSync": "node --no-warnings bsync.mjs",
     "start-dev-ui": "concurrently -c cyan,green -n server,browserSync \"npm:start-dev\" \"npm:start-dev-browserSync\"",
     "start-once": "node --experimental-loader=extensionless --es-module-specifier-resolution=node --no-warnings ./dist/index.js",
     "lint": "eslint . --ext .ts"

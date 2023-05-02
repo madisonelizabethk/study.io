@@ -78,7 +78,7 @@ async function logIn(req: Request, res: Response): Promise<void> {
 
   // res.sendStatus(200);
 
-  res.redirect('/successLoggedIn');
+  res.redirect('/');
 }
 
 async function getUserProfileData(req: Request, res: Response): Promise<void> {

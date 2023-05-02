@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial=scale=1.0">
+    <title> Take your Quiz | Study.io</title>
+  </head>
+  <body>
+
+  </body>
+
+  <h1> <%= quiz.setName %></h1>
+<form method="POST" action="/quizzes/<%= quiz.quizId %>">
+  <% for(const term of quiz.terms) { %>
+
+    <div class="question">
+      <p class="term"><%= term.question %></p>
+
+
+      <label for="answer">Answer:</label>
+      <input type="text" id="<%= term.termId %>" name="answers" required>
+    </div>
+  <% } %>
+
+  <button>Submit Quiz</button>
+</form>
+</html>
