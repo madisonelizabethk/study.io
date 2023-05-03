@@ -11,6 +11,7 @@ import { Counter } from './Counter';
 import { Quiz } from './Quiz';
 import { ClassInfo } from './ClassInfo';
 import { Notification } from './Notification';
+import { Reminder } from './Reminder';
 
 @Entity()
 export class User {
@@ -53,4 +54,8 @@ export class User {
 
   @Column({ unique: true })
   passwordHash: string;
+
+  @OneToMany(() => Reminder, (reminder) => reminder.username, {
+    cascade: ['insert', 'update'],
+  })
 }

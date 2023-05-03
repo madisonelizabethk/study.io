@@ -1,6 +1,7 @@
 import { parseISO } from 'date-fns';
 import { AppDataSource } from '../dataSource';
 import { Notification } from '../entities/Notification';
+import { Reminder } from '../Reminder';
 
 import { User } from '../entities/User';
 

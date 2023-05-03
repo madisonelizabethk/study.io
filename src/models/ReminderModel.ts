@@ -8,7 +8,7 @@ const reminderRepository = AppDataSource.getRepository(Reminder);
 
 async function addReminder(
   sendNotificationOn: string,
-  items: string[],
+  items: Notification,
   user: User
 ): Promise<Reminder | null> {
   // Create the new user object
