@@ -7,9 +7,6 @@ export class Notification {
   notificationId: string;
 
   @Column()
-  sendNotificationOn: Date;
-
-  @Column()
   assignmentName: string;
 
   @Column({ unique: true })
