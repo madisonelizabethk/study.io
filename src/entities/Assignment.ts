@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, Relation } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  OneToOne,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 import { ClassInfo } from './ClassInfo';
 import { Notification } from './Notification';
 
@@ -17,13 +25,10 @@ export class Assignment {
   dueDate: Date;
 
   // Relations
-  @OneToOne(() => Notification, (notification) => notification.assignment, {
-    cascade: ['insert', 'update'],
-  })
+  @OneToOne(() => Notification, (notification) => notification.assignment)
+  @JoinColumn()
   notification: Relation<Notification>;
 
-  @ManyToOne(() => ClassInfo, (classInfo) => classInfo.assignments, {
-    cascade: ['insert', 'update'],
-  })
+  @ManyToOne(() => ClassInfo, (classInfo) => classInfo.assignments)
   classInfo: Relation<ClassInfo>;
 }

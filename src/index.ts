@@ -4,7 +4,7 @@ import express, { Express } from 'express';
 
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
-import { scheduleJob } from 'node-schedule';
+// import { scheduleJob } from 'node-schedule';
 import {
   registerUser,
   logIn,
@@ -12,7 +12,7 @@ import {
   getAllUserProfiles,
   updateUserEmail,
 } from './controllers/UserController';
-import { createClassInfo, renderClasses } from './controllers/ClassController';
+import { createClassInfo, renderClasses, renderClassPage } from './controllers/ClassController';
 import { addNewTerm, renderTerms } from './controllers/TermController';
 import {
   addQuiz,
@@ -21,10 +21,11 @@ import {
   renderTakingQuizPage,
   checkQuizAnswers,
 } from './controllers/QuizController';
-import { addNewAssignment } from './controllers/AssignmentController';
-import { sendOneWeekReminders } from './services/reminderService';
+import { addNewAssignment, renderCreateAssignmentPage } from './controllers/AssignmentController';
+import { createNotification, renderNotificationPage } from './controllers/NotificationController';
+// import { sendOneWeekReminders } from './services/reminderService';
 
-scheduleJob('0 0 7 * * *', sendOneWeekReminders);
+// scheduleJob('0 0 7 * * *', sendOneWeekReminders);
 
 const app: Express = express();
 app.set('view engine', 'ejs');
@@ -76,10 +77,14 @@ app.post('/quizzes/:quizId', checkQuizAnswers); // Check User's answers
 
 // Reminder Endpoint
 // app.post('/api/notifications', _____);
-app.post('/api/reminders');
+// app.post('/api/notifications');
+app.get('/notification', renderNotificationPage);
+app.post('/notification', createNotification);
 
 // Assignment Endpoint
+app.get('/addAssignment', renderCreateAssignmentPage);
 app.post('/api/assignment', addNewAssignment);
+app.get('/courses/:classId', renderClassPage);
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

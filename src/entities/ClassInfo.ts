@@ -13,7 +13,7 @@ import { Assignment } from './Assignment';
 @Entity()
 export class ClassInfo {
   @PrimaryGeneratedColumn('uuid')
-  classID: string;
+  classId: string;
 
   @Column()
   className: string;
@@ -33,13 +33,11 @@ export class ClassInfo {
   @Column({ nullable: true })
   officeHours: string;
 
-  @OneToMany(() => Assignment, (assignment) => assignment.classInfo, {
-    cascade: ['insert', 'update'],
-  })
+  @OneToMany(() => Assignment, (assignment) => assignment.classInfo)
   assignments: Relation<Assignment>[];
 
   // Many to Many Relationship with User
-  @ManyToMany(() => User, (users) => users.info, { cascade: ['insert', 'update'] })
+  @ManyToMany(() => User, (users) => users.info)
   @JoinTable()
   users: Relation<User>[];
 }

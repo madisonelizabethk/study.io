@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { addNotification } from '../models/NotificationModel';
+import { allAssignmentData, getAssignmentById } from '../models/AssignmentModel';
 
 async function createNotification(req: Request, res: Response): Promise<void> {
   if (!req.session.isLoggedIn) {
@@ -6,13 +8,20 @@ async function createNotification(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const { authenticatedUser } = req.session;
-  const user = await getUserById(authenticatedUser.userID);
+  const { sendNotificationOn, assignmentId } = req.body as CreateNotificationBody;
+  const assignment = await getAssignmentById(assignmentId);
 
-  const { sendNotificationOn } = req.body as CreateNotificationBody;
-  const notification = await createNotification(sendNotificationOn, assignment);
+  const notification = await addNotification(sendNotificationOn, assignment);
 
-  res.sendStatus(201);
+  // res.sendStatus(201);
+  res.json(notification);
 }
 
-export { createNotification };
+// renderCreateAssignmentPage
+async function renderNotificationPage(req: Request, res: Response): Promise<void> {
+  const assignments = await allAssignmentData();
+
+  res.render('notificationPage', { assignments });
+}
+
+export { createNotification, renderNotificationPage };

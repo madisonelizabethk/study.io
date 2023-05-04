@@ -10,14 +10,24 @@ async function allClassData(): Promise<ClassInfo[]> {
 }
 
 // Function: Get courses by UserID that already exist in database
-async function getCoursesByUserID(userID: string): Promise<ClassInfo[]> {
-  const classinfo = await classRepository
-    .createQueryBuilder('classinfo')
-    .leftJoinAndSelect('classinfo.users', 'users')
-    .where('users.userID = :userID', { userID })
-    .getMany();
+async function getClassInfoByClassId(classId: string): Promise<ClassInfo | null> {
+  const classInfo = await classRepository
+    .createQueryBuilder('classInfo')
+    .leftJoinAndSelect('classInfo.users', 'users')
+    .where('classId = :classId', { classId })
+    .getOne();
 
-  return classinfo;
+  return classInfo;
+}
+
+// Get Class Roster for Assignment
+async function getUsersByClassId(classId: string): Promise<User[]> {
+  const classInfo = await classRepository.findOne({
+    where: { classId },
+    relations: ['users'],
+  });
+
+  return classInfo.users;
 }
 
 // Function: Get courses by professor email
@@ -28,9 +38,14 @@ async function getCoursesByProfessorEmail(email: string): Promise<ClassInfo[]> {
   return classes;
 }
 
-// Function: Get courses by classID
-async function getCourseByClassID(classID: string): Promise<ClassInfo | null> {
-  const classInfo = await classRepository.createQueryBuilder('class').where({ classID }).getOne();
+// Function: Get courses by classId
+async function getCourseByClassID(classId: string): Promise<ClassInfo | null> {
+  const classInfo = await classRepository
+    .createQueryBuilder('class')
+    .leftJoinAndSelect('class.assignments', 'assignments')
+    .leftJoinAndSelect('class.users', 'users')
+    .where({ classId })
+    .getOne();
   return classInfo;
 }
 
@@ -69,5 +84,6 @@ export {
   addClassInfo,
   allClassData,
   getCoursesByClassName,
-  getCoursesByUserID,
+  getUsersByClassId,
+  getClassInfoByClassId,
 };

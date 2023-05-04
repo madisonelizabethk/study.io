@@ -3,4 +3,5 @@ type NewAssignmentRequest = {
   assignmentType: string;
   className: string;
   dueDate: Date;
+  classId: string;
 };

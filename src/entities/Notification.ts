@@ -9,8 +9,6 @@ export class Notification {
   @Column()
   sendNotificationOn: Date;
 
-  @OneToOne(() => Assignment, (assignment) => assignment.notification, {
-    cascade: ['insert', 'update'],
-  })
+  @OneToOne(() => Assignment, (assignment) => assignment.notification)
   assignment: Relation<Assignment>;
 }

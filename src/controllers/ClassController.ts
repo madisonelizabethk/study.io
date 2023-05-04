@@ -44,9 +44,9 @@ async function createClassInfo(req: Request, res: Response): Promise<void> {
 
 // Get Class Info from the database
 async function getClassInfo(req: Request, res: Response): Promise<void> {
-  const { classID } = req.params as { classID: string };
+  const { classId } = req.params as { classId: string };
 
-  const classInfo = await getCourseByClassID(classID);
+  const classInfo = await getCourseByClassID(classId);
 
   if (!classInfo) {
     res.sendStatus(404);
@@ -63,4 +63,12 @@ async function renderClasses(req: Request, res: Response): Promise<void> {
   res.render('classPage', { classes });
 }
 
-export { getAllClasses, createClassInfo, getClassInfo, renderClasses };
+async function renderClassPage(req: Request, res: Response): Promise<void> {
+  const { classId } = req.params as { classId: string };
+
+  const clase = await getCourseByClassID(classId);
+
+  res.render('coursePage', { clase });
+}
+
+export { getAllClasses, createClassInfo, getClassInfo, renderClasses, renderClassPage };

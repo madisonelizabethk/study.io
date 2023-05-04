@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import { getAssignmentsByUserID, insertAssignment } from '../models/AssignmentModel';
+import { getAssignmentsByUserId, insertAssignment } from '../models/AssignmentModel';
 import { getUserById } from '../models/UserModel';
+import { allClassData, getClassInfoByClassId } from '../models/ClassModel';
 
-// Create a new term from the user
+// Create a new assignment  from the user
 async function addNewAssignment(req: Request, res: Response): Promise<void> {
   const { isLoggedIn, authenticatedUser } = req.session;
   // Check to see if user is logged in
@@ -20,19 +21,23 @@ async function addNewAssignment(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const { assignmentName, assignmentType, dueDate } = req.body as NewAssignmentRequest;
+  const { assignmentName, assignmentType, dueDate, classId } = req.body as NewAssignmentRequest;
+  const classInfo = await getClassInfoByClassId(classId);
 
-  const assignment = await insertAssignment(assignmentName, assignmentType, dueDate);
+  const assignment = await insertAssignment(assignmentName, assignmentType, dueDate, classInfo);
   console.log(assignment);
 
-  res.status(201).json(assignment);
+  console.log(req.body);
+
+  // res.status(201).send('Assignment Added!😊');
+  res.redirect(`/courses/${classId}`);
 }
 
-// Grab terns from the database
+// Grab assignment from the database
 async function getAssignment(req: Request, res: Response): Promise<void> {
-  const { assignmentID } = req.params as { assignmentID: string };
+  const { assignmentId } = req.params as { assignmentId: string };
 
-  const assignment = await getAssignmentsByUserID(assignmentID); // Fix Me
+  const assignment = await getAssignmentsByUserId(assignmentId); // Fix Me
 
   if (!assignment) {
     res.sendStatus(404); // Not found
@@ -43,8 +48,15 @@ async function getAssignment(req: Request, res: Response): Promise<void> {
 
   res.status(200).json(assignment);
 }
+// renderCreateAssignmentPage
+async function renderCreateAssignmentPage(req: Request, res: Response): Promise<void> {
+  const classes = await allClassData();
 
-async function getAllAssignments(req: Request, res: Response, userID: string): Promise<void> {
-  res.status(200).json(await getAssignmentsByUserID(userID));
+  res.render('createAssignmentPage', { classes });
 }
-export { addNewAssignment, getAssignment, getAllAssignments };
+
+// async function getAllAssignments(req: Request, res: Response, userID: string): Promise<void> {
+//   res.status(200).json(await getAssignmentsByUserId(userID));
+// }
+
+export { addNewAssignment, getAssignment, renderCreateAssignmentPage };

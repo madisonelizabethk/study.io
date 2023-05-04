@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> Add Assignment | Study.IO</title>
+</head>
+
+<body>
+
+
+</body>
+<form method="POST" action ="/notification">
+  <div>
+    <label for="sendNotificationOn">Notification:</label>
+    <input type="datetime-local" id="sendNotificationOn" name="sendNotificationOn" required>
+  </div>
+
+
+  <select name = "assignmentId">
+    <% for (let i = 0; i < assignments.length; ++i) { %>
+        <option value="<%= assignments[i].assignmentId %>"><%= assignments[i].assignmentName %> - <%= assignments[i].classInfo.className %> - <%= assignments[i].dueDate.toLocaleString() %> </option>
+    <% } %>
+  </select>
+
+<!-- <pre><%= JSON.stringify(assignments, null, 4) %></pre> -->
+
+  <button>Submit Assignment</button>
+</form>
+</html>

@@ -28,6 +28,13 @@
     <input type="datetime-local" id="dueDate" name="dueDate" required>
   </div>
 
+  <select name = "classId">
+    <% for (let i = 0; i < classes.length; ++i) { %>
+        <option value="<%= classes[i].classId %>"><%= classes[i].className %></option>
+    <% } %>
+  </select>
+  
+<!-- <pre><%= JSON.stringify(classes, null, 4) %></pre> -->
 
   <button>Submit Assignment</button>
 </form>
