@@ -14,9 +14,6 @@ export class Assignment {
   assignmentType: string;
 
   @Column()
-  className: string;
-
-  @Column()
   dueDate: Date;
 
   // Relations

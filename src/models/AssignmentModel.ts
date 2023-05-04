@@ -22,14 +22,12 @@ async function getAssignmentsByUserID(userID: string): Promise<Assignment[]> {
 async function insertAssignment(
   assignmentName: string,
   assignmentType: string,
-  className: string,
   dueDate: Date
 ): Promise<Assignment> {
   let newAssignment = new Assignment();
   // newAssignment.quizzes = [];
   newAssignment.assignmentName = assignmentName;
   newAssignment.assignmentType = assignmentType;
-  newAssignment.className = className;
   newAssignment.dueDate = dueDate;
 
   newAssignment = await assignmentRepository.save(newAssignment);

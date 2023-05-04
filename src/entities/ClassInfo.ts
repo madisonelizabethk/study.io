@@ -15,11 +15,6 @@ export class ClassInfo {
   @PrimaryGeneratedColumn('uuid')
   classID: string;
 
-  // Many to Many Relationship with User
-  @ManyToMany(() => User, (users) => users.info, { cascade: ['insert', 'update'] })
-  @JoinTable()
-  users: Relation<User>[];
-
   @Column()
   className: string;
 
@@ -42,4 +37,9 @@ export class ClassInfo {
     cascade: ['insert', 'update'],
   })
   assignments: Relation<Assignment>[];
+
+  // Many to Many Relationship with User
+  @ManyToMany(() => User, (users) => users.info, { cascade: ['insert', 'update'] })
+  @JoinTable()
+  users: Relation<User>[];
 }

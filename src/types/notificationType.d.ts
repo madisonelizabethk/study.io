@@ -1,4 +1,4 @@
 type CreateNotificationBody = {
   sendNotificationOn: string;
-  items: Notification;
+  assignmentId: string;
 };

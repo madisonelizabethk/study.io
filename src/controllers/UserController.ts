@@ -11,7 +11,7 @@ import { parseDatabaseError } from '../utils/db-utils';
 import { sendEmail } from '../services/emailService';
 // import { addNotification } from '../models/NotificationModel';
 // import { addNotification } from '../models/NotificationModel';
-import { addReminder } from '../models/ReminderModel';
+// import { addReminder } from '../models/ReminderModel';
 
 async function getAllUserProfiles(req: Request, res: Response): Promise<void> {
   res.json(await allUserData());
@@ -149,20 +149,20 @@ async function updateUserEmail(req: Request, res: Response): Promise<void> {
 //   res.sendStatus(201);
 // }
 
-async function createReminder(req: Request, res: Response): Promise<void> {
-  if (!req.session.isLoggedIn) {
-    res.sendStatus(401); // 401 Unauthorized
-    return;
-  }
+// async function createReminder(req: Request, res: Response): Promise<void> {
+//   if (!req.session.isLoggedIn) {
+//     res.sendStatus(401); // 401 Unauthorized
+//     return;
+//   }
 
-  const { authenticatedUser } = req.session;
-  const user = await getUserById(authenticatedUser.userID);
+//   const { authenticatedUser } = req.session;
+//   const user = await getUserById(authenticatedUser.userID);
 
-  const { sendNotificationOn, items } = req.body as CreateReminderBody;
-  const reminder = await addReminder(sendNotificationOn, items, user);
+//   const { sendNotificationOn, items } = req.body as CreateReminderBody;
+//   const reminder = await addReminder(sendNotificationOn, items, user);
 
-  res.sendStatus(201);
-}
+//   res.sendStatus(201);
+// }
 
 export {
   registerUser,
@@ -171,5 +171,5 @@ export {
   getAllUserProfiles,
   updateUserEmail,
   // createNotification,
-  createReminder,
+  // createReminder,
 };

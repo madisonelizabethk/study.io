@@ -20,9 +20,9 @@ async function addNewAssignment(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  const { assignmentName, assignmentType, className, dueDate } = req.body as NewAssignmentRequest;
+  const { assignmentName, assignmentType, dueDate } = req.body as NewAssignmentRequest;
 
-  const assignment = await insertAssignment(assignmentName, assignmentType, className, dueDate);
+  const assignment = await insertAssignment(assignmentName, assignmentType, dueDate);
   console.log(assignment);
 
   res.status(201).json(assignment);

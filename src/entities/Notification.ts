@@ -7,21 +7,7 @@ export class Notification {
   notificationId: string;
 
   @Column()
-  assignmentName: string;
-
-  @Column({ unique: true })
-  username: string;
-
-  @Column()
-  dueDate: Date;
-
-  @Column()
-  class: string;
-
-  // @ManyToOne(() )
-
-  // @ManyToOne(() => User, (user) => user.notifications, { cascade: ['insert', 'update'] })
-  // user: Relation<User>;
+  sendNotificationOn: Date;
 
   @OneToOne(() => Assignment, (assignment) => assignment.notification, {
     cascade: ['insert', 'update'],
