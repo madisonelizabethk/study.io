@@ -1,29 +1,30 @@
-// import { getUserNotifications, getRemindersDueInOneWeek } from '../models/UserModel';
-// import { sendEmail } from './emailService';
+import { getNotificationsDueToday } from '../models/NotificationModel';
+import { Notification } from '../entities/Notification';
+import { sendEmail } from './emailService';
 // import { User } from '../entities/User';
+// import { Assignment } from '../entities/Assignment';
 
 // Formatting the emails
-// async function sendReminders(users: User[]): Promise<void> {
-//   for (const user of users) {
-//     for (const reminder of user.notifications) {
-//       const { sendNotificationOn, items } = reminder;
+async function sendReminders(notifications: Notification[]): Promise<void> {
+  console.log(JSON.stringify(notifications, null, 4));
+  for (const notification of notifications) {
+    const { assignment } = notification;
+    const { assignmentName, assignmentType, dueDate, classInfo } = assignment;
+    const { className, users } = classInfo;
 
-//       const subject = `Reminder for ${sendNotificationOn.toLocaleDateString()}`;
-//       let message = 'Reminder Items:\n';
+    for (const user of users) {
+      const subject = `Reminder for ${dueDate.toLocaleDateString()}`;
+      const message = `Due Today: \n Assignment: ${assignmentName} \n Assignment Type: ${assignmentType} \n Class Name: ${className} \n`;
 
-//       for (const item of items) {
-//         message += `   - ${item}\n`;
-//       }
-
-//       await sendEmail(user.email, subject, message);
-//     }
-//   }
-// }
+      await sendEmail(user.email, subject, message);
+    }
+  }
+}
 
 // Sending Email
-// async function sendOneWeekReminders(): Promise<void> {
-//   const users = await getRemindersDueInOneWeek();
-//   await sendReminders(users);
-// }
+async function sendTheReminder(): Promise<void> {
+  const notifications = await getNotificationsDueToday();
+  await sendReminders(notifications);
+}
 
-// export { sendOneWeekReminders };
+export { sendTheReminder };

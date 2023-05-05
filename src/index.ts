@@ -4,7 +4,7 @@ import express, { Express } from 'express';
 
 import session from 'express-session';
 import connectSqlite3 from 'connect-sqlite3';
-// import { scheduleJob } from 'node-schedule';
+import { scheduleJob } from 'node-schedule';
 import {
   registerUser,
   logIn,
@@ -23,9 +23,9 @@ import {
 } from './controllers/QuizController';
 import { addNewAssignment, renderCreateAssignmentPage } from './controllers/AssignmentController';
 import { createNotification, renderNotificationPage } from './controllers/NotificationController';
-// import { sendOneWeekReminders } from './services/reminderService';
+import { sendTheReminder } from './services/reminderService';
 
-// scheduleJob('0 0 7 * * *', sendOneWeekReminders);
+scheduleJob('0 0 9 * * *', sendTheReminder);
 
 const app: Express = express();
 app.set('view engine', 'ejs');
